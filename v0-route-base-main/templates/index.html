@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RouteBase | Enterprise Payment Infrastructure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        :root { --accent: #2563eb; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.5s ease; overflow-x: hidden; }
+
+        .mesh-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at 0% 0%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+        }
+
+        /* Bubble Button Style */
+        .bubble-btn {
+            border-radius: 9999px; /* Perfect pill shape */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .bubble-btn:hover { transform: scale(1.05); }
+
+        /* SaaS Pro Specific Button */
+        .saas-pro-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            color: #60a5fa;
+            position: relative;
+        }
+        .saas-pro-btn::after {
+            content: 'PRO';
+            position: absolute;
+            top: -8px; right: 10px;
+            background: #3b82f6;
+            color: white;
+            font-size: 7px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 900;
+        }
+
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.02); 
+            backdrop-filter: blur(24px); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+
+        body:not(.light-mode) { background: #020617; color: #f8fafc; }
+        .light-mode { background: #f8fafc; color: #0f172a; }
+
+        .float { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="mesh-bg"></div>
+
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl z-[100] px-8 py-4 flex items-center justify-between glass-card rounded-full">
+        <a href="/" class="flex items-center gap-4">
+            <div class="h-8 w-auto"> 
+                <img src="{% static 'routebasee.svg' %}" class="h-full" alt="RB"> 
+            </div>
+            <span class="text-xl font-black tracking-tighter uppercase italic">RouteBase</span>
+        </a>
+
+        <div class="hidden lg:flex items-center gap-8">
+            <a href="/" class="text-[10px] font-bold uppercase tracking-widest opacity-60 hover:opacity-100 transition-all">Home</a>
+            <a href="/quick-pay" class="text-[10px] font-bold uppercase tracking-widest opacity-60 hover:opacity-100 transition-all">Quick Pay</a>
+            <a href="{% url 'merchants:saas_plans' %}" class="bubble-btn saas-pro-btn px-5 py-2 text-[10px] font-black uppercase tracking-widest">
+                SaaS Bridge
+            </a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <a href="{% url 'merchants:payment_builder' %}" class="hidden md:flex bubble-btn bg-blue-600/10 text-blue-500 px-6 py-2.5 text-[10px] font-black uppercase tracking-widest border-blue-500/20">
+                Payment Builder
+            </a>
+            <a href="{% url 'merchants:dashboard' %}" class="bubble-btn bg-blue-600 text-white px-8 py-2.5 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/20">
+                Get Access
+            </a>
+            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center opacity-50 hover:opacity-100 transition-all">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <main class="pt-48 pb-24 px-6 max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+        <div class="space-y-10 text-center lg:text-left">
+            <div class="inline-flex items-center gap-3 bg-blue-500/5 border border-blue-500/10 px-4 py-2 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-500">Infrastructure Active</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-[1.1] uppercase">
+                Payment <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Hoster.</span>
+            </h1>
+            
+            <p class="text-lg text-slate-400 font-medium max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                The enterprise standard for high-volume transactions. Deploy secure terminals in seconds.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <button class="w-full sm:w-auto bubble-btn bg-white text-black px-12 py-5 text-sm font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white">Deploy Terminal</button>
+                <button class="w-full sm:w-auto bubble-btn bg-transparent border border-white/10 px-12 py-5 text-sm font-black uppercase tracking-widest hover:bg-white/5">View Demo</button>
+            </div>
+        </div>
+
+        <div class="relative float">
+            <div class="absolute -inset-20 bg-blue-600/10 blur-[100px] rounded-full"></div>
+            <div class="glass-card rounded-[3rem] p-10 relative overflow-hidden">
+                <div class="flex justify-between items-center mb-12">
+                    <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-layer-group text-white text-xl"></i>
+                    </div>
+                    <span class="text-[9px] font-black uppercase tracking-widest px-4 py-2 border border-emerald-500/20 text-emerald-500 rounded-full bg-emerald-500/5">Secure Node</span>
+                </div>
+                
+                <div class="space-y-2 mb-10">
+                    <h3 class="text-2xl font-black uppercase tracking-tighter">Enterprise Checkout</h3>
+                    <p class="text-slate-500 font-mono text-sm opacity-60">routebase.io/terminal/v2/0x452...</p>
+                </div>
+
+                <div class="bg-white/5 border border-white/5 p-8 rounded-[2rem] space-y-6">
+                    <div class="flex justify-between font-black uppercase tracking-widest text-xs">
+                        <span class="opacity-40">Amount</span>
+                        <span class="text-blue-400">PKR 125,000.00</span>
+                    </div>
+                    <button class="w-full bubble-btn bg-blue-600 text-white py-5 font-black uppercase tracking-widest hover:bg-blue-500">Pay Now</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const isLight = body.classList.contains('light-mode');
+            themeIcon.classList.replace(isLight ? 'fa-moon' : 'fa-sun', isLight ? 'fa-sun' : 'fa-moon');
+        });
+    </script>
+</body>
+</html>

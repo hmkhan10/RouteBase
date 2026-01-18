@@ -1,0 +1,9 @@
+<ul class="space-y-6 mb-12 flex-grow">
+                    <li class="flex items-center gap-4 text-slate-300 font-medium"><i class="fa-solid fa-circle-check text-emerald-500/80"></i> Standard SaaS UI</li>
+                    <li class="flex items-center gap-4 text-slate-300 font-medium"><i class="fa-solid fa-circle-check text-emerald-500/80"></i> Single Payment Page</li>
+                </ul>
+
+<ul class="space-y-6 mb-12 flex-grow">
+                    <li class="flex items-center gap-4 text-white font-semibold"><i class="fa-solid fa-bolt-lightning text-blue-500"></i> Single Page Routing (SPA)</li>
+                    <li class="flex items-center gap-4 text-white font-semibold"><i class="fa-solid fa-bolt-lightning text-blue-500"></i> Advanced Admin Dashboard</li>
+                </ul>

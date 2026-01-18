@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | RouteBase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        
+        body {
+            background: radial-gradient(circle at top right, #0f172a, #020617);
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glass-checkout {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-glass-gradient {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-glass-gradient:hover {
+            border-color: #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .glow-bg {
+            position: absolute; width: 300px; height: 300px;
+            background: #3b82f6; filter: blur(120px);
+            opacity: 0.15; z-index: -1; border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <div class="glow-bg top-10 left-10"></div>
+    <div class="glow-bg bottom-10 right-10"></div>
+
+    <div class="glass-checkout max-w-[480px] w-full rounded-[3rem] p-8 md:p-12 relative overflow-hidden">
+
+        <div class="flex flex-col items-center mb-10 text-center">
+            <div class="flex items-center gap-2 mb-6">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+                    <i class="fa-solid fa-route text-white"></i>
+                </div>
+                <span class="text-xs font-black uppercase tracking-[0.3em] text-slate-400">Route<span class="text-white">Base</span></span>
+            </div>
+            <h1 class="text-3xl font-black tracking-tighter uppercase italic">Secure Checkout</h1>
+            <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-2">
+                Merchant: <span class="text-blue-400">{{ owner.website_name }}</span>
+            </p>
+        </div>
+
+        <div class="bg-white/5 rounded-[2rem] p-6 mb-8 border border-white/5">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-slate-400 text-xs font-semibold">General Payment</span>
+                <span class="font-bold text-sm">PKR {{ product_price|floatformat:2 }}</span>
+            </div>
+            <div class="flex justify-between items-center mb-5">
+                <span class="text-blue-400 text-[10px] font-black uppercase tracking-widest">Platform Fee (1.2%)</span>
+                <span class="text-blue-400 font-bold text-sm">+ PKR {{ processing_fee|floatformat:2 }}</span>
+            </div>
+            <div class="flex justify-between items-end pt-4 border-t border-white/10">
+                <span class="text-xs font-black uppercase text-slate-500 mb-1">Total to Pay</span>
+                <span class="text-3xl font-black text-emerald-400">PKR {{ total_amount|floatformat:2 }}</span>
+            </div>
+        </div>
+
+        <form id="paymentForm" class="space-y-4" autocomplete="off">
+            {% csrf_token %}
+            <div class="grid grid-cols-2 gap-4">
+                <div class="col-span-2">
+                    <label class="text-[9px] font-black uppercase text-slate-500 ml-2">Phone Number (JazzCash)</label>
+                    <input type="text" id="phone_input" placeholder="03XXXXXXXXX" 
+                           class="w-full p-4 rounded-2xl bg-slate-900 text-white border border-white/10 outline-none focus:border-emerald-500" required>
+                </div>
+                <div class="col-span-2">
+                    <label class="text-[9px] font-black uppercase text-slate-500 ml-2">CNIC (Last 6 Digits)</label>
+                    <input type="text" id="cnic_input" placeholder="XXXXXX" 
+                           class="w-full p-4 rounded-2xl bg-slate-900 text-white border border-white/10 outline-none focus:border-emerald-500" required>
+                </div>
+            </div>
+            <button type="submit" id="submitBtn" class="btn-glass-gradient w-full py-5 rounded-2xl mt-4 text-xs font-bold uppercase tracking-widest">
+                <span id="btnText">Confirm Payment</span>
+                <div id="btnSpinner" style="display:none;" class="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+            </button>
+        </form>
+
+        <div class="mt-8 pt-6 border-t border-white/5 flex items-center justify-between opacity-40">
+            <div class="flex gap-3 text-lg">
+                <i class="fa-brands fa-cc-visa"></i>
+                <i class="fa-brands fa-cc-mastercard"></i>
+            </div>
+            <div class="flex items-center gap-1 text-[8px] font-black uppercase tracking-widest">
+                <i class="fa-solid fa-shield-halved text-blue-400"></i>
+                SECURE JAZZCASH GATEWAY
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+
+            // UI Feedback
+            btn.disabled = true;
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'inline-block';
+
+            const paymentData = {
+                seller_identifier: "{{ merchant.slug }}", 
+                amount: "{{ total_amount }}",             
+                buyer_phone: document.getElementById('phone_input').value,
+                buyer_cnic: document.getElementById('cnic_input').value
+            };
+
+            fetch('/api/process-payment/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: JSON.stringify(paymentData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    alert("Payment Request Sent! Please check your phone for the JazzCash PIN prompt.");
+                } else {
+                    alert("Error: " + data.error);
+                }
+            })
+            .catch(err => alert("Connection Error"))
+            .finally(() => {
+                btn.disabled = false;
+                btnText.style.display = 'inline-block';
+                btnSpinner.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

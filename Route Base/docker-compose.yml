@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: payfast
+      POSTGRES_USER: payfast_user
+      POSTGRES_PASSWORD: payfast_password
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  web:
+    build: .
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn payfast.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://payfast_user:payfast_password@db:5432/payfast
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+  nginx:
+    image: nginx:1.21-alpine
+    volumes:
+      - ./deploy/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

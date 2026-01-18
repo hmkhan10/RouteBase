@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | {{ site.site_name }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <style>
+        body { background: #f8fafc; font-family: 'Inter', sans-serif; }
+        .checkout-container { max-width: 1000px; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div class="checkout-container w-full grid grid-cols-1 lg:grid-cols-2 bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200">
+        
+        <div class="p-8 lg:p-12 bg-slate-50 border-r border-slate-100">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="bg-blue-600 p-2 rounded-xl text-white">
+                    <span class="material-icons-round">shopping_bag</span>
+                </div>
+                <h2 class="text-xl font-bold text-slate-800 tracking-tight">{{ site.site_name }}</h2>
+            </div>
+
+            <div class="space-y-6">
+                <h1 class="text-3xl font-black text-slate-900">Upgrade to PRO</h1>
+                <p class="text-slate-500 leading-relaxed">Unlock advanced analytics, custom slugs, and premium support for your store.</p>
+                
+                <div class="py-6 border-y border-slate-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-slate-600 font-medium">Pro Monthly Plan</span>
+                        <span class="text-slate-900 font-bold">PKR 5,000.00</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-slate-400">
+                        <span>Platform Fee</span>
+                        <span>Included</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <span class="text-lg font-bold text-slate-900">Total Due</span>
+                    <span class="text-3xl font-black text-blue-600">PKR 5,000</span>
+                </div>
+            </div>
+
+            <div class="mt-12 space-y-4">
+                <div class="flex items-center gap-3 text-sm text-slate-500">
+                    <span class="material-icons-round text-emerald-500 text-sm">check_circle</span>
+                    Instant Activation
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-500">
+                    <span class="material-icons-round text-emerald-500 text-sm">check_circle</span>
+                    Secure SSL Encryption
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8 lg:p-12">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-lg font-bold text-slate-800">Secure Payment</h3>
+                <img src="https://paymob.com/images/paymob_logo.png" alt="Paymob" class="h-6 opacity-50">
+            </div>
+
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-inner min-h-[500px]">
+                {% if paymob_iframe_url %}
+                    <iframe 
+                        src="{{ paymob_iframe_url }}" 
+                        width="100%" 
+                        height="500" 
+                        frameborder="0" 
+                        class="animate-in fade-in duration-700">
+                    </iframe>
+                {% else %}
+                    <div class="flex flex-col items-center justify-center h-[500px] text-center p-6">
+                        <span class="material-icons-round text-slate-200 text-6xl mb-4">error_outline</span>
+                        <p class="text-slate-400 text-sm">Payment session expired or could not be generated. Please refresh the page.</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <p class="text-center text-slate-400 text-[10px] mt-6 uppercase tracking-widest font-bold">
+                🔒 Secured by Paymob Marketplace
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

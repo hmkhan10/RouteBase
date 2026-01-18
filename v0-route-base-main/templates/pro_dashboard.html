@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <style>
+        body { background: #020617; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .pro-gradient { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+    <div class="max-w-7xl mx-auto">
+        <header class="glass rounded-[2rem] p-6 mb-8 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-5">
+                <div class="pro-gradient p-4 rounded-2xl shadow-xl shadow-indigo-500/20">
+                    <span class="material-icons-round text-white text-3xl">auto_graph</span>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black italic uppercase tracking-tighter">{{ sub.site_name }}</h1>
+                    <div class="flex items-center gap-2">
+                        <span class="h-2 w-2 bg-emerald-500 rounded-full"></span>
+                        <p class="text-[10px] font-bold text-slate-500 tracking-widest uppercase">Pro Dashboard Active</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <a href="/admin/" class="px-5 py-2.5 rounded-xl border border-white/10 text-xs font-bold hover:bg-white/5 transition">ADMIN</a>
+                <button class="pro-gradient px-8 py-2.5 rounded-xl text-xs font-black shadow-lg shadow-indigo-500/30 transition hover:scale-105">WITHDRAW</button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="glass p-8 rounded-[2.5rem] relative overflow-hidden group">
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">Total Sales</p>
+                <h2 class="text-4xl font-black">PKR {{ revenue }}</h2>
+                <span class="material-icons-round absolute -right-6 -bottom-6 text-9xl opacity-[0.03] group-hover:opacity-10 transition-opacity">payments</span>
+            </div>
+            <div class="glass p-8 rounded-[2.5rem] border-indigo-500/20">
+                <p class="text-indigo-400 text-xs font-bold uppercase tracking-widest mb-2">Profit Boost (Saved)</p>
+                <h2 class="text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">PKR {{ savings }}</h2>
+            </div>
+            <div class="glass p-8 rounded-[2.5rem]">
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">Order Count</p>
+                <h2 class="text-4xl font-black">{{ orders }}</h2>
+            </div>
+        </div>
+
+        <div class="glass p-10 rounded-[3rem]">
+            <div class="flex justify-between items-center mb-10">
+                <h3 class="font-bold text-xl flex items-center gap-2">
+                    <span class="material-icons-round text-indigo-500">timeline</span> Growth Analytics
+                </h3>
+                <div class="flex gap-2">
+                    <button class="text-[10px] font-bold bg-white/5 px-4 py-2 rounded-lg">7D</button>
+                    <button class="text-[10px] font-bold bg-indigo-600/20 text-indigo-400 px-4 py-2 rounded-lg">30D</button>
+                </div>
+            </div>
+            <div class="h-[300px]">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan 09', 'Jan 10', 'Jan 11', 'Jan 12', 'Jan 13', 'Jan 14', 'Jan 15'],
+                datasets: [{
+                    data: [120000, 145000, 130000, 165000, 155000, 180000, 184200],
+                    borderColor: '#6366f1',
+                    borderWidth: 4,
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(99, 102, 241, 0.05)',
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { 
+                    y: { display: false }, 
+                    x: { grid: { display: false }, ticks: { color: '#475569', font: { weight: 'bold' } } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

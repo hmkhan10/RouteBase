@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.site_name }} | Pro Dashboard</title>
+    <style>
+        body { 
+            background: #020617; color: white; font-family: 'Inter', sans-serif; 
+            display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
+        }
+        .pro-card {
+            background: linear-gradient(145deg, #1e1b4b, #0f172a);
+            padding: 60px; border-radius: 40px; border: 1px solid #312e81;
+            text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .badge {
+            color: #818cf8; border: 1px solid #312e81; padding: 5px 15px;
+            border-radius: 20px; font-size: 12px; font-weight: bold;
+        }
+        h1 { font-size: 48px; margin: 20px 0; }
+        .btn-manage {
+            background: white; color: black; padding: 15px 30px; 
+            border-radius: 12px; text-decoration: none; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="pro-card">
+        <span class="badge">PRO PLAN ACTIVE</span>
+        <h1>{{ site.site_name }}</h1>
+        <p style="color: #94a3b8; margin-bottom: 40px;">Your premium hosting is live with 3% transaction fees.</p>
+        
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <a href="/admin/" class="btn-manage">STORE ADMIN</a>
+            <a href="{% url 'merchants:pro_setup' %}" style="color: #94a3b8; text-decoration: none; line-height: 50px;">Settings</a>
+        </div>
+    </div>
+</body>
+</html>

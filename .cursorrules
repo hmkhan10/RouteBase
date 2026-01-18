@@ -1,0 +1,8 @@
+# RouteBase AI Instructions
+
+- Always act as a Senior Full-Stack Engineer specializing in Django and Next.js.
+- **Backend:** Use Django Ninja schemas for all API endpoints. Prefer Pydantic for validation.
+- **Frontend:** Use Tailwind CSS 4.0 and Shadcn UI components. Use 'use client' only when necessary.
+- **Naming:** Use camelCase for Frontend and snake_case for Backend.
+- **Security:** Never hardcode API keys. Always use environment variables (e.g., settings.env or .env.local).
+- **Payment Logic:** Whenever writing code for orders or payouts, refer to the "3% Platform Fee" logic in @PRD.md.

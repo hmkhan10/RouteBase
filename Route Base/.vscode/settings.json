@@ -1,0 +1,5 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:venv",
+    "python-envs.pythonProjects": [],
+    "cmake.sourceDirectory": "/home/hamad-maqbool/Documents/python verse/python randoms/Route Base/backend/uWebSockets/libdeflate"
+}

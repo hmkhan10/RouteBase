@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RouteBase | Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,800;1,200;1,800&display=swap');
+        
+        body {
+            background-color: #020617;
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 1px;
+        
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 1rem;
+            width: 100%;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-beast {
+            background: linear-gradient(90deg, #06b6d4, #3b82f6, #8b5cf6);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .code-container {
+            margin: 100px;
+            padding: 10px;
+            top: 30px;
+  background-color: #1e1e1e; 
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
+  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.code-header {
+  background-color: #333; 
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+.code-link {
+  color: #4daafc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.code-link:hover {
+  text-decoration: underline;
+}
+
+pre {
+  margin: 20px;
+  padding: 20px;
+  color: #6486ce; 
+  overflow-x: auto;
+}
+    </style>
+</head>
+<body class="pb-20">
+
+    {% if owner.subscription_expiry %}
+    <div class="bg-blue-600/20 border-b border-blue-500/30 p-3 text-center sticky top-0 z-50 backdrop-blur-md">
+        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">
+            <i class="fa-solid fa-crown mr-2"></i> Pro Subscription Active — Renews in {{ owner.subscription_expiry|timeuntil }}
+        </p>
+    </div>
+    {% elif owner.trial_started_at %}
+    <div class="bg-emerald-600/20 border-b border-emerald-500/30 p-3 text-center sticky top-0 z-50 backdrop-blur-md">
+        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-400">
+            <i class="fa-solid fa-clock mr-2"></i> Free Trial Mode — {{ owner.trial_expiry|timeuntil }} remaining
+        </p>
+    </div>
+    {% endif %}
+
+    {{ labels|json_script:"chart-labels" }}
+    {{ data_points|json_script:"chart-data" }}
+
+    <div class="max-w-7xl mx-auto space-y-10 px-4 md:px-10 mt-10">
+        
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+            <div class="space-y-6">
+                <h1 class="text-6xl font-black italic tracking-tighter uppercase leading-none">
+                    Gateway <span class="text-blue-500 text-4xl block">Deployer</span>
+                </h1>
+                
+                {% if owner.website_name %}
+                <div class="glass-panel p-8 rounded-[2.5rem] border-emerald-500/20 bg-emerald-500/5">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="w-3 h-3 bg-emerald-500 rounded-full animate-ping"></span>
+                        <p class="text-[10px] font-black uppercase text-emerald-500 tracking-widest">Infratructure Live</p>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-4 font-medium italic">Link your website buttons to this unique terminal:</p>
+                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/10">
+                        <code class="text-cyan-400 text-xs font-mono truncate mr-2">/pay/{{ owner.slug }}/</code>
+                        <button onclick="navigator.clipboard.writeText(window.location.origin + '/pay/{{ owner.slug }}/')" class="text-slate-500 hover:text-white transition">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="mt-6 flex gap-4">
+                        <a href="/pay/{{ owner.slug }}/" target="_blank" class="text-[10px] font-black uppercase tracking-widest text-blue-400 hover:underline">Preview Terminal <i class="fa-solid fa-external-link ml-1"></i></a>
+                    </div>
+                </div>
+                {% else %}
+                <form method="POST" action="{% url 'payment_builder' %}" class="glass-panel p-8 rounded-[2.5rem] space-y-4">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2">
+                            <label class="text-[9px] font-black uppercase text-slate-500 ml-2">Website Identity</label>
+                            <input type="text" name="website_name" placeholder="Website Name" class="input-field mt-1" required>
+                        </div>
+                        <div class="col-span-2">
+                            <input type="url" name="website_url" placeholder="https://your-site.com" class="input-field" required>
+                        </div>
+                        
+                        <div class="col-span-2 mt-2 border-t border-white/5 pt-4">
+                            <label class="text-[9px] font-black uppercase text-slate-500 ml-2">Payout Destination (Account)</label>
+                            <input type="text" name="account_num" placeholder="Bank/Wallet Account Number" class="input-field mt-1" required>
+                        </div>
+                        <div>
+                            <input type="text" name="account_expiry" placeholder="MM/YY" class="input-field" required>
+                        </div>
+                        <div>
+                            <input type="password" name="account_cvc" placeholder="CVC" class="input-field" required>
+                        </div>
+
+                        <div class="col-span-2 mt-2 border-t border-white/5 pt-4">
+                            <label class="text-[9px] font-black uppercase text-slate-500 ml-2">Owner Identity</label>
+                            <input type="text" name="full_name" placeholder="Full Name" class="input-field mt-1" required>
+                        </div>
+                        <div class="col-span-2">
+                            <input type="text" name="owner_phone" placeholder="Phone Number" class="input-field" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-beast w-full py-5 rounded-2xl mt-4 text-xs">Build and Deploy</button>
+                </form>
+                {% endif %}
+            </div>
+
+            <div>
+                <div class="code-container">
+  <div class="code-header">
+    <span>Link</span>
+    <a href="https://example.com" class="code-link">Docs &rarr;</a>
+  </div>
+  <pre><code>
+    &lt;div class="box"&gt;
+  &lt;p&gt;Hello World&lt;/p&gt;
+&lt;/div&gt;
+  </code></pre>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rawLabels = JSON.parse(document.getElementById('chart-labels').textContent);
+        const rawData = JSON.parse(document.getElementById('chart-data').textContent);
+        const chartLabels = rawLabels.length > 0 ? rawLabels : ['Ready'];
+        const chartData = rawData.length > 0 ? rawData : [0];
+        const ctx = document.getElementById('fluxChart').getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(34, 211, 238, 0.2)');
+        gradient.addColorStop(1, 'rgba(34, 211, 238, 0)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    label: 'Revenue',
+                    data: chartData,
+                    borderColor: '#22d3ee',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#22d3ee',
+                    pointRadius: 5,
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: gradient,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { weight: '800' } } },
+                    x: { grid: { display: false }, ticks: { color: '#64748b', font: { weight: '800' } } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
