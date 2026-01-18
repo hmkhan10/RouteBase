@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay {{ merchant.admin_name }} | RouteBase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 min-h-screen flex items-center justify-center p-4 font-sans">
+
+    <div id="main-container" class="max-w-md w-full bg-white rounded-[3rem] shadow-2xl overflow-hidden transition-all duration-500">
+        
+        <div class="bg-blue-600 p-8 text-center text-white">
+            <div class="w-16 h-16 bg-white/20 rounded-2xl mx-auto flex items-center justify-center mb-4 backdrop-blur-md">
+                <i class="fa-solid fa-shop text-2xl"></i>
+            </div>
+            <p class="text-blue-100 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Paying To</p>
+            <h1 class="text-3xl font-black tracking-tight">{{ merchant.admin_name }}</h1>
+            {% if merchant.description %}
+            <p class="text-blue-200 text-xs mt-2 italic opacity-80">"{{ merchant.description }}"</p>
+            {% endif %}
+        </div>
+
+        <div class="p-10 space-y-6">
+            <div class="space-y-4">
+                <div class="relative">
+                    <label class="absolute -top-2 left-4 bg-white px-1 text-[10px] font-bold text-slate-400 uppercase">Payment Amount (PKR)</label>
+                    <input type="number" id="pay-amount" placeholder="0.00" class="w-full border-2 border-slate-100 rounded-2xl p-4 text-3xl font-black text-blue-600 outline-none focus:border-blue-600 transition">
+                </div>
+
+                <div class="relative">
+                    <label class="absolute -top-2 left-4 bg-white px-1 text-[10px] font-bold text-slate-400 uppercase">Your JazzCash / CNIC</label>
+                    <input type="text" id="client-id" placeholder="03XXXXXXXXX" class="w-full border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-blue-600 transition">
+                </div>
+
+                <div class="p-4 bg-red-50 rounded-2xl border-2 border-red-200 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/JazzCash_logo.png/250px-JazzCash_logo.png" class="h-5">
+                        <span class="font-bold text-red-700">JazzCash</span>
+                    </div>
+                    <i class="fa-solid fa-circle-check text-red-600"></i>
+                </div>
+            </div>
+
+            <button onclick="triggerJazzCash()" class="w-full bg-slate-900 text-white p-6 rounded-3xl font-black text-sm uppercase tracking-widest hover:bg-black transition shadow-xl shadow-slate-200 active:scale-95 duration-75">
+                Authorize & Pay Now
+            </button>
+            
+            <p class="text-center text-[10px] text-slate-400 font-medium">Secured by RouteBase Encryption Technology</p>
+        </div>
+    </div>
+
+    <div id="receipt-container" class="hidden max-w-md w-full bg-white rounded-[3rem] shadow-2xl overflow-hidden border-8 border-white">
+        <div class="bg-green-500 p-10 text-center text-white">
+            <div class="w-20 h-20 bg-white/20 rounded-full mx-auto flex items-center justify-center mb-4">
+                <i class="fa-solid fa-check text-4xl"></i>
+            </div>
+            <h2 class="text-3xl font-black tracking-tight">Success!</h2>
+            <p class="text-green-100 font-medium">Transaction Completed</p>
+        </div>
+        
+        <div class="p-10">
+            <div class="space-y-4 text-sm">
+                <div class="flex justify-between border-b border-slate-100 pb-3">
+                    <span class="text-slate-400 font-bold uppercase text-[10px]">Merchant</span>
+                    <span class="font-black text-slate-800 tracking-tight">{{ merchant.admin_name }}</span>
+                </div>
+                <div class="flex justify-between border-b border-slate-100 pb-3">
+                    <span class="text-slate-400 font-bold uppercase text-[10px]">Client ID</span>
+                    <span id="rec-id" class="font-black text-slate-800 tracking-tight"></span>
+                </div>
+                <div class="flex justify-between border-b border-slate-100 pb-3">
+                    <span class="text-slate-400 font-bold uppercase text-[10px]">Total Paid</span>
+                    <span id="rec-amt" class="font-black text-green-600 text-xl tracking-tight"></span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400 font-bold uppercase text-[10px]">Status</span>
+                    <span class="text-blue-600 font-black text-[10px] uppercase tracking-widest bg-blue-50 px-2 py-1 rounded">Official Receipt</span>
+                </div>
+            </div>
+            
+            <button onclick="window.print()" class="w-full mt-10 border-2 border-slate-200 p-4 rounded-2xl font-black text-xs text-slate-500 uppercase tracking-widest hover:bg-slate-50 transition">
+                <i class="fa-solid fa-print mr-2"></i> Print Receipt
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function triggerJazzCash() {
+            const amount = document.getElementById('pay-amount').value;
+            const clientId = document.getElementById('client-id').value;
+
+            if(!amount || !clientId) {
+                alert("Please provide amount and CNIC/Mobile.");
+                return;
+            }
+
+            
+            alert("Redirecting to JazzCash Payment Gateway...");
+            
+            setTimeout(() => {
+                document.getElementById('main-container').classList.add('hidden');
+                document.getElementById('receipt-container').classList.remove('hidden');
+                
+                document.getElementById('rec-amt').innerText = "PKR " + amount;
+                document.getElementById('rec-id').innerText = clientId;
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

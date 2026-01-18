@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login | RouteBase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="bg-slate-50 flex min-h-screen">
+
+    <div class="hidden lg:flex w-1/2 bg-slate-900 p-16 flex-col justify-between relative overflow-hidden">
+        <div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-blue-600 rounded-full blur-[120px] opacity-20"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-emerald-500 rounded-full blur-[120px] opacity-20"></div>
+
+        <div class="relative z-10">
+            <div class="flex items-center gap-2 mb-12">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                    <i class="fa-solid fa-bolt text-white text-lg"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tight text-white italic uppercase">RouteBase</span>
+            </div>
+            <h2 class="text-5xl font-extrabold text-white leading-tight">Secure Terminal<br><span class="text-blue-500">Access Point</span></h2>
+            <p class="text-slate-400 mt-6 text-lg max-w-md font-medium">Monitoring millions of transactions across Pakistan with bank-grade encryption.</p>
+        </div>
+
+        <div class="relative z-10">
+            <div class="flex items-center gap-4 text-slate-500 text-sm font-bold tracking-widest uppercase">
+                <span>Verified</span>
+                <span class="w-1 h-1 bg-slate-700 rounded-full"></span>
+                <span>Encrypted</span>
+                <span class="w-1 h-1 bg-slate-700 rounded-full"></span>
+                <span>Fast</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white lg:bg-slate-50">
+        <div class="max-w-md w-full glass p-8 lg:p-12 rounded-[2.5rem] lg:shadow-2xl lg:shadow-slate-200 border border-white">
+            <div class="mb-10">
+                <h1 class="text-3xl font-black text-slate-900 tracking-tight">Welcome Back</h1>
+                <p class="text-slate-500 font-medium mt-2">Enter your credentials to manage your terminal.</p>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                <div class="bg-rose-50 border border-rose-100 text-rose-600 px-4 py-3 rounded-2xl text-sm font-bold mb-6">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                <div>
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Username</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user absolute left-5 top-1/2 -translate-y-1/2 text-slate-300"></i>
+                        <input type="text" name="username" required class="w-full pl-14 pr-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none font-semibold text-slate-900 transition-all" placeholder="Enter username">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-5 top-1/2 -translate-y-1/2 text-slate-300"></i>
+                        <input type="password" name="password" required class="w-full pl-14 pr-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-600 outline-none font-semibold text-slate-900 transition-all" placeholder="••••••••">
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600">
+                        <span class="text-xs font-bold text-slate-500">Remember me</span>
+                    </label>
+                    <a href="#" class="text-xs font-bold text-blue-600 hover:underline">Forgot?</a>
+                </div>
+
+                <button type="submit" class="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-slate-200 hover:bg-blue-600 hover:scale-[1.02] active:scale-95 transition-all">
+                    Sign In <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>
+                </button>
+            </form>
+
+            <p class="text-center mt-10 text-sm font-bold text-slate-400">
+                New merchant? <a href="{% url 'merchants:dashboard' %}" class="text-blue-600 hover:underline">Register Terminal</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

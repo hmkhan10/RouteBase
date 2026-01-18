@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Transfer Funds | Route Base</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body class="bg-[#f8fafc] flex items-center justify-center min-h-screen p-4">
+
+
+    <div class="max-w-md w-full bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
+
+        <div class="h-1.5 w-full bg-slate-100">
+
+            <div id="progress" class="h-full bg-blue-600 transition-all duration-500" style="width: 25%"></div>
+
+        </div>
+
+
+        <div class="p-8">
+
+            <div class="flex justify-between items-center mb-8">
+
+                <span class="font-black text-xl tracking-tighter text-slate-800 italic">ROUTEBASE</span>
+
+                <i class="fa-solid fa-shield-check text-green-500"></i>
+
+            </div>
+
+
+            <div id="view-amount">
+
+                <h2 class="text-2xl font-bold text-slate-900 mb-6">Payment Details</h2>
+
+                <div class="space-y-4">
+
+                    <div class="relative">
+
+                        <label
+                            class="absolute -top-2 left-4 bg-white px-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Recipient
+                            IBAN / Mobile</label>
+
+                        <input type="text" id="recipient" placeholder="PK70 SADAPAY 0000..."
+                            class="w-full border-2 border-slate-100 rounded-2xl p-4 focus:border-blue-600 outline-none transition font-medium">
+
+                    </div>
+
+
+                    <div class="relative">
+
+                        <label
+                            class="absolute -top-2 left-4 bg-white px-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Amount
+                            (PKR)</label>
+
+                        <input type="number" id="main-amount" oninput="calculateTotal()" placeholder="0.00"
+                            class="w-full border-2 border-slate-100 rounded-2xl p-4 focus:border-blue-600 outline-none transition text-2xl font-black text-blue-600">
+
+                    </div>
+
+
+                    <div class="bg-slate-50 rounded-2xl p-4 space-y-2 text-sm">
+
+                        <div class="flex justify-between text-slate-500">
+
+                            <span>Platform Fee (5%)</span>
+
+                            <span id="fee-display">PKR 0</span>
+
+                        </div>
+
+                        <div class="flex justify-between font-bold text-slate-900 border-t border-slate-200 pt-2">
+
+                            <span>Total to Pay</span>
+
+                            <span id="total-display">PKR 0</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button onclick="toIdentity()"
+                    class="w-full bg-blue-600 text-white p-5 rounded-2xl font-bold mt-8 hover:bg-blue-700 transition shadow-lg shadow-blue-100">
+
+                    Proceed to Verify <i class="fa-solid fa-chevron-right ml-2 text-xs"></i>
+
+                </button>
+
+            </div>
+
+
+            <div id="view-identity" class="hidden">
+
+                <div class="mb-6 flex items-center gap-3 bg-blue-50 p-3 rounded-xl border border-blue-100">
+
+                    <i class="fa-solid fa-user-check text-blue-600"></i>
+
+                    <p class="text-xs text-blue-800 font-medium">Paying <span id="summary-amount"
+                            class="font-bold"></span> to <span id="summary-recipient" class="font-bold"></span></p>
+
+                </div>
+
+
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Verify CNIC</h2>
+
+                <p class="text-slate-500 text-sm mb-8">Verification required via SadaPay/Bank API.</p>
+
+                <div class="space-y-4">
+
+                    <input type="text" id="cnic" placeholder="CNIC (e.g. 42101xxxxxxxx)"
+                        class="w-full border-2 border-slate-100 rounded-2xl p-4 focus:border-blue-600 outline-none transition font-mono">
+
+                    <input type="password" id="pin" placeholder="Secure Account PIN"
+                        class="w-full border-2 border-slate-100 rounded-2xl p-4 focus:border-blue-600 outline-none transition">
+
+                </div>
+
+
+                <button onclick="processIdentity()" id="btn-fetch"
+                    class="w-full bg-slate-900 text-white p-5 rounded-2xl font-bold mt-8">
+
+                    Fetch My Accounts
+
+                </button>
+
+            </div>
+
+
+            <div id="view-accounts" class="hidden">
+
+                <h2 class="text-2xl font-bold text-slate-900 mb-6">Select Source</h2>
+
+                <div class="space-y-3" id="account-list"></div>
+
+                <button onclick="confirmPayment()"
+                    class="w-full bg-green-600 text-white p-5 rounded-2xl font-bold mt-8 shadow-lg shadow-green-100">
+
+                    Confirm & Send Money
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+
+        function calculateTotal() {
+
+            const amount = parseFloat(document.getElementById('main-amount').value) || 0;
+
+            const fee = amount * 0.05;
+
+            const total = amount + fee;
+
+            document.getElementById('fee-display').innerText = `PKR ${fee.toLocaleString()}`;
+
+            document.getElementById('total-display').innerText = `PKR ${total.toLocaleString()}`;
+
+            document.getElementById('summary-amount').innerText = `PKR ${total.toLocaleString()}`;
+
+        }
+
+
+        
+        function toIdentity() {
+
+            const recipient = document.getElementById('recipient').value;
+
+            if (!recipient || !document.getElementById('main-amount').value) {
+
+                alert("Please enter Recipient and Amount"); return;
+
+            }
+
+            document.getElementById('summary-recipient').innerText = recipient;
+
+            document.getElementById('view-amount').classList.add('hidden');
+
+            document.getElementById('view-identity').classList.remove('hidden');
+
+            document.getElementById('progress').style.width = '50%';
+
+        }
+
+
+        function processIdentity() {
+
+            
+
+            document.getElementById('view-identity').classList.add('hidden');
+
+            document.getElementById('view-accounts').classList.remove('hidden');
+
+            document.getElementById('progress').style.width = '75%';
+
+            const list = document.getElementById('account-list');
+
+            list.innerHTML = `
+
+<div class="border-2 border-blue-600 bg-blue-50 rounded-2xl p-4 flex items-center justify-between">
+
+<div class="flex items-center gap-4">
+
+<div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">J</div>
+
+<div><p class="font-bold text-slate-800">SadaPay Wallet</p><p class="text-xs text-slate-500">03xx-xxxx782</p></div>
+
+</div>
+
+<i class="fa-solid fa-circle-check text-blue-600"></i>
+
+</div>
+
+`;
+
+        }
+
+
+        function confirmPayment() {
+
+            document.getElementById('progress').style.width = '100%';
+
+            alert("Payment Sent Successfully!");
+        }
+
+    </script>
+
+</body>
+
+</html>
