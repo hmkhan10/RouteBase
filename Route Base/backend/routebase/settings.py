@@ -108,7 +108,7 @@ DATABASES = {
         default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
         conn_max_age=600,
         conn_health_checks=True,
-    )
+    ) # Configured for Railway PostgreSQL (DATABASE_URL)
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -238,7 +238,7 @@ SUPPORT_PHONE = os.getenv('SUPPORT_PHONE', '+923001234567')
 WEBHOOK_SECRET = os.getenv('WEBHOOK_SECRET', '')
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # For testing password resets in terminal
 EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'

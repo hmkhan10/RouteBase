@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Eye, EyeOff, Lock, User, ArrowRight } from "lucide-react"
+import { apiClient } from "@/lib/api-client"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -23,11 +24,15 @@ export default function LoginPage() {
     e.preventDefault()
     setIsLoading(true)
 
-    // Simulate login - in production, this would be a real API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-
-    // Demo: redirect to techflow dashboard (Ecommerce-Pro)
-    router.push("/techflow/dashboard")
+    try {
+      await apiClient.login(formData)
+      router.push("/dashboard")
+    } catch (error) {
+      console.error("Login failed:", error)
+      alert("Login failed. Please check your credentials.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -171,6 +176,12 @@ export default function LoginPage() {
                 Register Terminal
               </Link>
             </p>
+
+            <div className="mt-8 pt-6 border-t border-white/5 flex justify-center gap-6 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+              <Link href="/terms" className="hover:text-emerald-400 transition-colors">Terms</Link>
+              <Link href="/privacy" className="hover:text-emerald-400 transition-colors">Privacy</Link>
+              <Link href="/support" className="hover:text-emerald-400 transition-colors">Support</Link>
+            </div>
           </GlassCard>
         </motion.div>
       </div>

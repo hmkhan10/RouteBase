@@ -71,10 +71,41 @@ class ApiClient {
             body: JSON.stringify(data),
         });
     }
+    // Login
+    async login(data: any): Promise<any> {
+        return this.request<any>('/login/', {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    }
+
+    // Register
+    async register(data: any): Promise<any> {
+        return this.request<any>('/register/', {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    }
+
+    // Password Reset Request
+    async requestPasswordReset(email: string): Promise<any> {
+        return this.request<any>('/api/password-reset/', {
+            method: 'POST',
+            body: JSON.stringify({ email }),
+        });
+    }
+
+    // Password Reset Confirm
+    async confirmPasswordReset(data: any): Promise<any> {
+        return this.request<any>('/api/password-reset-confirm/', {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    }
 }
 
 // Export singleton instance
 export const apiClient = new ApiClient();
 
 // Named exports for convenience
-export const { healthCheck, helloWorld, getMerchants } = apiClient;
+export const { healthCheck, helloWorld, getMerchants, login, register, requestPasswordReset, confirmPasswordReset } = apiClient;

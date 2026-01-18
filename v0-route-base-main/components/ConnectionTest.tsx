@@ -133,7 +133,7 @@ export default function ConnectionTest() {
                     <div className="flex justify-between items-center">
                         <span className="text-gray-600">Backend URL:</span>
                         <code className="bg-gray-200 px-2 py-1 rounded text-xs font-mono">
-                            http://localhost:8000
+                            {process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}
                         </code>
                     </div>
                     <div className="flex justify-between items-center">
