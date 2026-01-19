@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     
     # Local apps
     'merchants.apps.MerchantsConfig', 
+    'users.apps.UsersConfig',
 ]
 
 SITE_ID = 1
@@ -99,6 +100,7 @@ CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = [
     "https://127.0.0.1:8000",
     "https://localhost:8000",
+    "https://route-base.vercel.app",
 ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -203,6 +205,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://localhost:3000',
+    'https://route-base.vercel.app',
 ] + list(filter(None, os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')))
 
 CORS_ALLOW_CREDENTIALS = True
@@ -244,7 +247,12 @@ EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@payfast.pk')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@routebase.pk')
+
+ANYMAIL = {
+    "RESEND_API_KEY": os.getenv("RESEND_API_KEY"),
+}
+EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
 
 
 CACHES = {

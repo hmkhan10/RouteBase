@@ -110,6 +110,7 @@ export default function RegisterPage() {
                   <div className="relative">
                     <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
+                      name="business_name"
                       type="text"
                       placeholder="Your Business Name"
                       className="pl-11 py-6 bg-white/5 border-white/10 rounded-xl"
@@ -125,6 +126,7 @@ export default function RegisterPage() {
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
+                      name="email"
                       type="email"
                       placeholder="contact@business.pk"
                       className="pl-11 py-6 bg-white/5 border-white/10 rounded-xl"
@@ -140,6 +142,7 @@ export default function RegisterPage() {
                   <div className="relative">
                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
+                      name="phone"
                       type="tel"
                       placeholder="+92 300 1234567"
                       className="pl-11 py-6 bg-white/5 border-white/10 rounded-xl"
@@ -155,6 +158,7 @@ export default function RegisterPage() {
                   <div className="relative">
                     <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
+                      name="website"
                       type="url"
                       placeholder="https://yourbusiness.pk"
                       className="pl-11 py-6 bg-white/5 border-white/10 rounded-xl"
@@ -166,7 +170,7 @@ export default function RegisterPage() {
                   <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                     Plan Type
                   </Label>
-                  <Select defaultValue="ecommerce-pro">
+                  <Select name="plan_type" defaultValue="ecommerce-pro">
                     <SelectTrigger className="py-6 bg-white/5 border-white/10 rounded-xl">
                       <SelectValue placeholder="Select plan" />
                     </SelectTrigger>
@@ -192,6 +196,7 @@ export default function RegisterPage() {
                     Account Holder Name
                   </Label>
                   <Input
+                    name="account_holder"
                     type="text"
                     placeholder="Full name as per bank records"
                     className="py-6 bg-white/5 border-white/10 rounded-xl"
@@ -203,7 +208,7 @@ export default function RegisterPage() {
                   <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                     Bank / Wallet Name
                   </Label>
-                  <Select>
+                  <Select name="bank_name">
                     <SelectTrigger className="py-6 bg-white/5 border-white/10 rounded-xl">
                       <SelectValue placeholder="Select bank" />
                     </SelectTrigger>
@@ -223,6 +228,7 @@ export default function RegisterPage() {
                     Account / IBAN Number
                   </Label>
                   <Input
+                    name="iban"
                     type="text"
                     placeholder="PK00 XXXX XXXX XXXX XXXX XXXX"
                     className="py-6 bg-white/5 border-white/10 rounded-xl font-mono"
@@ -235,13 +241,14 @@ export default function RegisterPage() {
                     <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                       Branch Code
                     </Label>
-                    <Input type="text" placeholder="0000" className="py-6 bg-white/5 border-white/10 rounded-xl" />
+                    <Input name="branch_code" type="text" placeholder="0000" className="py-6 bg-white/5 border-white/10 rounded-xl" />
                   </div>
                   <div className="space-y-2">
                     <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                       CNIC (Optional)
                     </Label>
                     <Input
+                      name="cnic"
                       type="text"
                       placeholder="00000-0000000-0"
                       className="py-6 bg-white/5 border-white/10 rounded-xl"

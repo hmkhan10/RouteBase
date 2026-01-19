@@ -4,8 +4,12 @@ import Link from "next/link"
 import { RouteBaseLogo } from "./routebase-logo"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
+import { usePayment } from "@/lib/payment-context"
+import { ShieldCheck } from "lucide-react"
 
 export function Navbar() {
+  const { isPro } = usePayment()
+
   return (
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
@@ -16,6 +20,17 @@ export function Navbar() {
       <Link href="/">
         <RouteBaseLogo size="sm" />
       </Link>
+
+      {isPro && (
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="flex items-center gap-1.5 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full"
+        >
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+          <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">Pro</span>
+        </motion.div>
+      )}
 
       <div className="hidden md:flex items-center gap-8">
         <Link
@@ -35,6 +50,12 @@ export function Navbar() {
           className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
         >
           Docs
+        </Link>
+        <Link
+          href="/profile"
+          className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+        >
+          Profile
         </Link>
       </div>
 

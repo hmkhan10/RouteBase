@@ -102,10 +102,41 @@ class ApiClient {
             body: JSON.stringify(data),
         });
     }
+
+    // Verify Payment
+    async verifyPayment(token: string): Promise<any> {
+        return this.request<any>('/api/verify-payment/', {
+            method: 'POST',
+            body: JSON.stringify({ token }),
+        });
+    }
+
+    // Get Subscription Status
+    async getSubscription(): Promise<any> {
+        return this.request<any>('/api/subscription/', {
+            method: 'GET',
+        });
+    }
+
+    // Get Order History
+    async getOrderHistory(): Promise<any[]> {
+        return this.request<any[]>('/api/orders/', {
+            method: 'GET',
+        });
+    }
 }
 
 // Export singleton instance
 export const apiClient = new ApiClient();
 
-// Named exports for convenience
-export const { healthCheck, helloWorld, getMerchants, login, register, requestPasswordReset, confirmPasswordReset } = apiClient;
+// Named exports for convenience with proper 'this' binding
+export const healthCheck = apiClient.healthCheck.bind(apiClient);
+export const helloWorld = apiClient.helloWorld.bind(apiClient);
+export const getMerchants = apiClient.getMerchants.bind(apiClient);
+export const login = apiClient.login.bind(apiClient);
+export const register = apiClient.register.bind(apiClient);
+export const requestPasswordReset = apiClient.requestPasswordReset.bind(apiClient);
+export const confirmPasswordReset = apiClient.confirmPasswordReset.bind(apiClient);
+export const verifyPayment = apiClient.verifyPayment.bind(apiClient);
+export const getSubscription = apiClient.getSubscription.bind(apiClient);
+export const getOrderHistory = apiClient.getOrderHistory.bind(apiClient);

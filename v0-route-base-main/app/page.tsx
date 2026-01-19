@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { GlassCard } from "@/components/glass-card"
 import { RouteBaseLogo } from "@/components/routebase-logo"
+import { Navbar } from "@/components/navbar"
 import { Zap, Shield, BarChart3, CreditCard, Users, TrendingUp, ArrowRight, Check, Store, Cloud } from "lucide-react"
 
 const features = [
@@ -105,27 +106,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#0A0C10]">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <RouteBaseLogo size="sm" />
-          <div className="hidden md:flex items-center gap-8">
-            <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Features
-            </Link>
-            <Link href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Pricing
-            </Link>
-            <Link href="/login" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Sign In
-            </Link>
-            <Link href="/register">
-              <Button className="bg-emerald-500 hover:bg-emerald-600 font-bold text-xs uppercase tracking-widest">
-                Get Started
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
@@ -319,8 +300,8 @@ export default function LandingPage() {
                   <Link href="/register">
                     <Button
                       className={`w-full font-bold uppercase tracking-widest text-xs py-5 ${plan.popular
-                          ? "bg-emerald-500 hover:bg-emerald-600"
-                          : "bg-white/5 hover:bg-white/10 border border-white/10"
+                        ? "bg-emerald-500 hover:bg-emerald-600"
+                        : "bg-white/5 hover:bg-white/10 border border-white/10"
                         }`}
                     >
                       {plan.cta}

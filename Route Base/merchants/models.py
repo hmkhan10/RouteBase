@@ -564,3 +564,20 @@ class CustomerPage(models.Model):
         """Check if the owner has the 4,500 PKR plan active for this page"""
         sub = self.owner.UserSubscription
         return sub.is_active and not sub.is_expired and sub.plan.has_spa_routing
+
+class Order(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('paid', 'Paid'),
+        ('failed', 'Failed'),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    token = models.CharField(max_length=255, unique=True)
+    saas_plan_id = models.CharField(max_length=50, null=True, blank=True) # e.g., "saas-pro"
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Order {self.id} - {self.user.username} - {self.status}"
