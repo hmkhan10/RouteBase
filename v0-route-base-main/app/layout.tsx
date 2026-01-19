@@ -10,12 +10,12 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" })
 
 export const metadata: Metadata = {
-  title: "RouteBase | Pakistan's Dual-Vertical Payment Platform",
-  description: "Whether you sell products or subscriptions, RouteBase powers your payments with instant settlements, real-time analytics, and custom branded checkouts.",
-  keywords: ["payments", "fintech", "pakistan", "saas", "checkout", "raast", "jazzcash", "easypaisa"],
+  title: "RouteBase | The Financial Orchestration Layer for Pakistan",
+  description: "A sophisticated financial orchestration layer engineered to catalyze economic velocity. Synthesizing high-frequency e-commerce with complex subscription logic through a unified neural infrastructure.",
+  keywords: ["payments", "fintech", "pakistan", "saas", "checkout", "raast", "jazzcash", "easypaisa", "financial orchestration"],
   openGraph: {
-    title: "RouteBase | Dual-Vertical Payment Platform",
-    description: "Instant settlements and custom branded checkouts for Pakistan.",
+    title: "RouteBase | Financial Orchestration Layer",
+    description: "Catalyzing economic velocity through a unified neural infrastructure for E-commerce and SaaS.",
     url: "https://routebase.pk",
     siteName: "RouteBase",
     images: [
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RouteBase | Dual-Vertical Payment Platform",
-    description: "Instant settlements and custom branded checkouts for Pakistan.",
+    title: "RouteBase | Financial Orchestration Layer",
+    description: "Catalyzing economic velocity through a unified neural infrastructure for E-commerce and SaaS.",
     images: ["/og-main.png"],
   },
 }
