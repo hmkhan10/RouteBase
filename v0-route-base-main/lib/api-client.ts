@@ -124,6 +124,20 @@ class ApiClient {
             method: 'GET',
         });
     }
+
+    // Get Ecommerce Metrics
+    async getEcommerceMetrics(merchantSlug: string): Promise<any> {
+        return this.request<any>(`/api/metrics/ecommerce/${merchantSlug}`, {
+            method: 'GET',
+        });
+    }
+
+    // Get SaaS Metrics
+    async getSaaSMetrics(merchantSlug: string): Promise<any> {
+        return this.request<any>(`/api/metrics/saas/${merchantSlug}`, {
+            method: 'GET',
+        });
+    }
 }
 
 // Export singleton instance
@@ -140,3 +154,5 @@ export const confirmPasswordReset = apiClient.confirmPasswordReset.bind(apiClien
 export const verifyPayment = apiClient.verifyPayment.bind(apiClient);
 export const getSubscription = apiClient.getSubscription.bind(apiClient);
 export const getOrderHistory = apiClient.getOrderHistory.bind(apiClient);
+export const getEcommerceMetrics = apiClient.getEcommerceMetrics.bind(apiClient);
+export const getSaaSMetrics = apiClient.getSaaSMetrics.bind(apiClient);

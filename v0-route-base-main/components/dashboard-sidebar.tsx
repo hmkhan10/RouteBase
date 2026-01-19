@@ -32,21 +32,26 @@ export function DashboardSidebar({
   const navItems = [
     ...(hasDashboard
       ? [
-          {
-            label: "Intelligence",
-            href: `/${merchantSlug}/dashboard`,
-            icon: LayoutDashboard,
-          },
-        ]
+        {
+          label: "Intelligence",
+          href: `/${merchantSlug}/dashboard`,
+          icon: LayoutDashboard,
+        },
+        {
+          label: "Analytics",
+          href: `/${merchantSlug}/dashboard/analytics`,
+          icon: Cloud,
+        },
+      ]
       : []),
     {
       label: "Transactions",
-      href: `/${merchantSlug}/transactions`,
+      href: `/${merchantSlug}/dashboard/transactions`,
       icon: History,
     },
     {
       label: "Settings",
-      href: `/${merchantSlug}/settings`,
+      href: `/${merchantSlug}/dashboard/settings`,
       icon: Settings,
     },
   ]

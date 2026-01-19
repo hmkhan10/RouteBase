@@ -4,6 +4,7 @@ import { Inter, Outfit } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import { PaymentProvider } from "@/lib/payment-context"
+import { AuthProvider } from "@/lib/auth-context"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" })
@@ -49,9 +50,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased min-h-screen bg-[#0A0C10]`}>
-        <PaymentProvider>
-          {children}
-        </PaymentProvider>
+        <AuthProvider>
+          <PaymentProvider>
+            {children}
+          </PaymentProvider>
+        </AuthProvider>
         <Analytics />
       </body>
     </html>

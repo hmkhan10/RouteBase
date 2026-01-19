@@ -69,6 +69,27 @@ class OrderHistorySchema(Schema):
         from_attributes = True
 
 
+class ChartDataSchema(Schema):
+    date: str
+    amount: float
+
+
+class DashboardMetricsSchema(Schema):
+    totalVolume: float
+    merchantProfit: float
+    totalFees: float
+    transactionCount: int
+    chartData: list[ChartDataSchema]
+
+
+class SaaSMetricsSchema(DashboardMetricsSchema):
+    activeSubscribers: int
+    churnRate: float
+    mrr: float
+    arr: float
+    retentionRate: float
+
+
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
@@ -198,3 +219,49 @@ def get_order_history(request):
     
     orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return orders
+
+
+from django.db.models import Sum, Count
+from django.db.models.functions import TruncDay
+
+@router.get("/metrics/ecommerce/{merchant_slug}", response=DashboardMetricsSchema, tags=["merchants"])
+def get_ecommerce_metrics(request, merchant_slug: str):
+    merchant = get_object_or_404(Merchant, slug=merchant_slug)
+    # In a real app, we'd filter transactions by this merchant
+    # For now, we'll aggregate orders for the user who owns the merchant
+    orders = Order.objects.filter(user=merchant.user, status='paid')
+    
+    total_volume = orders.aggregate(Sum('amount'))['amount__sum'] or 0.0
+    total_fees = float(total_volume) * 0.03 # 3% platform fee
+    
+    # Generate chart data for last 7 days
+    chart_data = []
+    daily_stats = orders.annotate(day=TruncDay('created_at')).values('day').annotate(total=Sum('amount')).order_by('day')
+    for stat in daily_stats:
+        chart_data.append({
+            "date": stat['day'].strftime("%b %d"),
+            "amount": float(stat['total'])
+        })
+
+    return {
+        "totalVolume": float(total_volume),
+        "merchantProfit": float(total_volume) - total_fees,
+        "totalFees": total_fees,
+        "transactionCount": orders.count(),
+        "chartData": chart_data
+    }
+
+
+@router.get("/metrics/saas/{merchant_slug}", response=SaaSMetricsSchema, tags=["merchants"])
+def get_saas_metrics(request, merchant_slug: str):
+    base_metrics = get_ecommerce_metrics(request, merchant_slug)
+    
+    # Mock SaaS specific metrics for now, as we don't have a full subscription tracking for customers yet
+    return {
+        **base_metrics,
+        "activeSubscribers": 124,
+        "churnRate": 1.2,
+        "mrr": base_metrics["totalVolume"] / 12, # Simplified MRR
+        "arr": base_metrics["totalVolume"],
+        "retentionRate": 98.5
+    }

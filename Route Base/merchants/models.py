@@ -314,6 +314,7 @@ class Transaction(models.Model):
     ip_address = models.GenericIPAddressField(null=True, blank=True)
     user_agent = models.TextField(blank=True)
     page_type = models.CharField(max_length=20, default='custom')
+    idempotency_key = models.CharField(max_length=255, unique=True, null=True, blank=True, db_index=True)
     
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -520,8 +521,14 @@ class SaaSPlan(models.Model):
 
 class UserSubscription(models.Model):
     """Tracks which user has which plan and when it expires"""
+    USER_TYPE_CHOICES = [
+        ('MERCHANT', 'Merchant'),
+        ('SAAS', 'SaaS'),
+        ('CUSTOMER', 'Customer'),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='subscription')
     plan = models.CharField(max_length=20, default='FREE')
+    user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES, default='CUSTOMER')
     site_name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     # Status tracking

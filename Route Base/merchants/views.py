@@ -82,6 +82,40 @@ def home_view(request):
 
 
 def register(request): 
+    if request.method == "POST":
+        form = SellerRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            
+            # Set user_type based on plan_type if provided, default to MERCHANT for this form
+            plan_type = request.POST.get('plan_type', 'ecommerce-pro')
+            sub, created = UserSubscription.objects.get_or_create(user=user)
+            
+            if 'saas' in plan_type.lower():
+                sub.user_type = 'SAAS'
+            else:
+                sub.user_type = 'MERCHANT'
+            
+            sub.save()
+            
+            # Create Seller profile
+            Seller.objects.get_or_create(
+                user=user,
+                defaults={
+                    'business_name': request.POST.get('business_name', ''),
+                    'phone': request.POST.get('phone', ''),
+                    'email': user.email,
+                    'page_slug': slugify(request.POST.get('business_name', user.username))
+                }
+            )
+            
+            if request.headers.get('Content-Type') == 'application/json':
+                return JsonResponse({"success": True, "message": "Registered successfully"})
+            return redirect('merchants:dashboard')
+        else:
+            if request.headers.get('Content-Type') == 'application/json':
+                return JsonResponse({"success": False, "errors": form.errors}, status=400)
     return render(request, 'register.html') 
 
 def login_view(request): 
@@ -110,8 +144,26 @@ def process_transaction(request, owner_slug):
         owner = get_object_or_404(Seller, page_slug=owner_slug)
         
         customer_name = request.POST.get('customer_name')
-        base_amount = Decimal(str(request.POST.get('amount', 0)))
+        raw_amount = request.POST.get('amount', 0)
+        idempotency_key = request.POST.get('idempotency_key')
         
+        try:
+            base_amount = Decimal(str(raw_amount))
+            if base_amount <= 0:
+                raise ValueError("Amount must be positive")
+        except (ValueError, Decimal.InvalidOperation):
+            return JsonResponse({"success": False, "error": "Invalid amount"}, status=400)
+
+        if idempotency_key:
+            existing_tx = Transaction.objects.filter(idempotency_key=idempotency_key).first()
+            if existing_tx:
+                return render(request, 'payment_success.html', {
+                    'tx': existing_tx,
+                    'owner': owner,
+                    'customer': customer_name,
+                    'total': existing_tx.amount + existing_tx.platform_fee
+                })
+
         fee = (base_amount * Decimal('0.03')).quantize(Decimal('0.01'))
         seller_amount = (base_amount - fee).quantize(Decimal('0.01'))
         total_charged = base_amount + fee  
@@ -123,7 +175,8 @@ def process_transaction(request, owner_slug):
             platform_fee=fee,
             seller_amount=seller_amount, 
             payment_method='bank',
-            status='completed'
+            status='completed',
+            idempotency_key=idempotency_key
         )
         
         
@@ -204,6 +257,15 @@ def process_quick_payment(request):
             return Response({'success': False, 'error': 'Merchant not found'}, status=404) 
         
         base_amount = Decimal(str(data['amount']))
+        if base_amount <= 0:
+            return Response({'success': False, 'error': 'Amount must be positive'}, status=400)
+            
+        idempotency_key = data.get('idempotency_key')
+        if idempotency_key:
+            existing_tx = Transaction.objects.filter(idempotency_key=idempotency_key).first()
+            if existing_tx:
+                return Response({'success': True, 'transaction_id': existing_tx.transaction_id, 'status': existing_tx.status})
+
         platform_fee = (base_amount * Decimal('0.03')).quantize(Decimal('0.01'))
         total_amount = base_amount + platform_fee
 
@@ -214,7 +276,8 @@ def process_quick_payment(request):
                 'phone': data['buyer_phone'], 
                 'cnic': data.get('buyer_cnic')
             }, 
-            payment_method='jazzcash' 
+            payment_method='jazzcash',
+            idempotency_key=idempotency_key
         ) 
         return Response(result) 
     except Exception as e: 

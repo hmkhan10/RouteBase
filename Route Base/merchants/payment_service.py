@@ -16,7 +16,7 @@ class PaymentService:
         except AttributeError:
             self.commission_rate = Decimal('0.03') 
      
-    def initiate_payment(self, amount, seller, buyer_info, payment_method='jazzcash'):
+    def initiate_payment(self, amount, seller, buyer_info, payment_method='jazzcash', idempotency_key=None):
         
         from merchants.models import Transaction, Seller
         from django.utils import timezone
@@ -41,7 +41,8 @@ class PaymentService:
                 platform_fee=commission,
                 seller_amount=seller_amount,
                 payment_method=payment_method,
-                status='pending'
+                status='pending',
+                idempotency_key=idempotency_key
             )
              
             payment_data = self.sadapay.create_payment_request(
