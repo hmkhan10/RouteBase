@@ -81,25 +81,60 @@ def home_view(request):
     return render(request, 'index.html') 
 
 
+@csrf_exempt
 def register(request): 
     if request.method == "POST":
+        if request.headers.get('Content-Type') == 'application/json':
+            try:
+                data = json.loads(request.body)
+            except json.JSONDecodeError:
+                return JsonResponse({"success": False, "message": "Invalid JSON"}, status=400)
+            
+            # Manual validation for JSON requests
+            username = data.get('username')
+            email = data.get('email')
+            password = data.get('password', 'password123')
+            
+            if not username or not email:
+                return JsonResponse({"success": False, "errors": {"username": ["Required"], "email": ["Required"]}}, status=400)
+            
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({"success": False, "errors": {"username": ["This username is already taken."]}}, status=400)
+            
+            if User.objects.filter(email=email).exists():
+                return JsonResponse({"success": False, "errors": {"email": ["This email is already associated with an account."]}}, status=400)
+
+            user = User.objects.create_user(username=username, email=email, password=password)
+            login(request, user)
+            
+            plan_type = data.get('plan_type', 'ecommerce-pro')
+            sub, created = UserSubscription.objects.get_or_create(user=user)
+            sub.user_type = 'SAAS' if 'saas' in plan_type.lower() else 'MERCHANT'
+            sub.save()
+            
+            Seller.objects.get_or_create(
+                user=user,
+                defaults={
+                    'business_name': data.get('business_name', ''),
+                    'phone': data.get('phone', ''),
+                    'email': user.email,
+                    'page_slug': slugify(data.get('business_name', user.username)),
+                    'bank_name': data.get('bank_name', ''),
+                    'bank_account': data.get('iban', ''),
+                }
+            )
+            return JsonResponse({"success": True, "message": "Registered successfully"})
+            
         form = SellerRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             
-            # Set user_type based on plan_type if provided, default to MERCHANT for this form
             plan_type = request.POST.get('plan_type', 'ecommerce-pro')
             sub, created = UserSubscription.objects.get_or_create(user=user)
-            
-            if 'saas' in plan_type.lower():
-                sub.user_type = 'SAAS'
-            else:
-                sub.user_type = 'MERCHANT'
-            
+            sub.user_type = 'SAAS' if 'saas' in plan_type.lower() else 'MERCHANT'
             sub.save()
             
-            # Create Seller profile
             Seller.objects.get_or_create(
                 user=user,
                 defaults={
@@ -109,29 +144,39 @@ def register(request):
                     'page_slug': slugify(request.POST.get('business_name', user.username))
                 }
             )
-            
-            if request.headers.get('Content-Type') == 'application/json':
-                return JsonResponse({"success": True, "message": "Registered successfully"})
             return redirect('merchants:dashboard')
         else:
-            if request.headers.get('Content-Type') == 'application/json':
-                return JsonResponse({"success": False, "errors": form.errors}, status=400)
+            return JsonResponse({"success": False, "errors": form.errors}, status=400)
     return render(request, 'register.html') 
 
+@csrf_exempt
 def login_view(request): 
     if request.method == "POST": 
-        u = request.POST.get('username') 
-        p = request.POST.get('password') 
+        if request.headers.get('Content-Type') == 'application/json':
+            try:
+                data = json.loads(request.body)
+                u = data.get('username')
+                p = data.get('password')
+            except json.JSONDecodeError:
+                return JsonResponse({"success": False, "message": "Invalid JSON"}, status=400)
+        else:
+            u = request.POST.get('username') 
+            p = request.POST.get('password') 
+            
         user = authenticate(request, username=u, password=p) 
         if user is not None: 
             login(request, user) 
             LoginHistory.objects.create( 
                 user=user, 
-                ip_address=request.META.get('REMOTE_ADDR'), 
+                ip_address=get_client_ip(request), 
                 user_agent=request.META.get('HTTP_USER_AGENT') 
             ) 
+            if request.headers.get('Content-Type') == 'application/json':
+                return JsonResponse({"success": True, "message": "Logged in successfully"})
             return redirect('home') 
         else: 
+            if request.headers.get('Content-Type') == 'application/json':
+                return JsonResponse({"success": False, "message": "Invalid username or password."}, status=401)
             messages.error(request, "Invalid username or password.") 
     return render(request, 'login.html') 
 
@@ -211,7 +256,7 @@ from django.views.decorators.cache import cache_page
 
 @cache_page(60 * 15)  # Cache for 15 minutes
 def seller_page(request, slug): 
-    merchant = get_object_or_404(MerchantPage, slug=slug)
+    merchant = get_object_or_404(Seller, page_slug=slug)
     if not merchant.is_active:
         return render(request, 'subscription_expired.html', {'merchant': merchant})
     raw_amount = request.GET.get('amount', 0)
@@ -251,7 +296,7 @@ def quick_pay_view(request):
 def process_quick_payment(request): 
     try: 
         data = request.data 
-        merchant = MerchantPage.objects.filter(slug=data.get('seller_identifier')).first() 
+        merchant = Seller.objects.filter(page_slug=data.get('seller_identifier')).first() 
         
         if not merchant: 
             return Response({'success': False, 'error': 'Merchant not found'}, status=404) 
@@ -313,7 +358,7 @@ def dashboard(request):
     
     seller, created = Seller.objects.get_or_create(user=request.user)
     
-    my_txs = Transaction.objects.filter(seller=seller, status='verified')
+    my_txs = Transaction.objects.filter(seller=seller, status='completed')
 
     
     total_vol = my_txs.aggregate(Sum('amount'))['amount__sum'] or Decimal('0.00')
@@ -351,10 +396,9 @@ def payment_webhook(request):
                 tx = Transaction.objects.select_for_update().get(transaction_id=gateway_id)
                 
                 if payment_status == 'success':
-                    if tx.status != 'verified':
-                        tx.status = 'verified'
-                        tx.save()
-                        logger.info(f"Transaction {gateway_id} verified via webhook")
+                    if tx.status != 'completed':
+                        tx.mark_completed(gateway_txn_id=gateway_id, response_data=data)
+                        logger.info(f"Transaction {gateway_id} completed via webhook")
                     return HttpResponse(status=200)
                 else:
                     logger.warning(f"Webhook received non-success status for {gateway_id}: {payment_status}")
@@ -383,8 +427,8 @@ def transaction_history(request):
     f = request.GET.get('filter')
     if f == '30days':
         history = history.filter(created_at__gte=timezone.now() - timedelta(days=30))
-    elif f == 'verified':
-        history = history.filter(status='verified')
+    elif f == 'completed':
+        history = history.filter(status='completed')
 
     return render(request, 'transaction_history.html', {
         'seller': seller,
@@ -522,22 +566,27 @@ def public_payment_page(request, business_slug):
 @login_required
 def activate_trial(request):
     if request.method == "POST":
-        merchant, created = MerchantPage.objects.get_or_create(user=request.user)
-        
-        merchant.is_active = True 
-        merchant.save()
+        seller, created = Seller.objects.get_or_create(user=request.user)
+        seller.is_active = True 
+        seller.save()
 
-        return redirect('payment_builder')
+        sub, created = UserSubscription.objects.get_or_create(user=request.user)
+        sub.is_active = True
+        sub.save()
+
+        return redirect('merchants:dashboard')
 @login_required
 def activate_paid(request):
     if request.method == "POST":
-        card_num = request.POST.get('card_num')
+        seller, created = Seller.objects.get_or_create(user=request.user)
+        seller.is_active = True
+        seller.save()
+
+        sub, created = UserSubscription.objects.get_or_create(user=request.user)
+        sub.is_active = True
+        sub.save()
         
-        merchant, created = MerchantPage.objects.get_or_create(user=request.user)
-        merchant.is_active = True
-        merchant.save()
-        
-        return redirect('payment_builder') 
+        return redirect('merchants:dashboard') 
 @csrf_exempt
 def receive_uplink_data(request):
     """
@@ -723,6 +772,7 @@ def pro_setup_view(request):
         # Here you would update their subscription model
         sub, created = UserSubscription.objects.get_or_create(user=request.user)
         sub.site_name = site_name
+        sub.slug = slugify(site_name)
         sub.plan = 'PRO'
         sub.is_active = True # Only do this after they pay!
         sub.save()

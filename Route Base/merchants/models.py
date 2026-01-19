@@ -266,7 +266,7 @@ class Seller(models.Model):
     
     @property
     def page_url(self):
-        return f"/p/{self.page_slug}/"
+        return f"/pay/{self.page_slug}/"
     
     def update_balance(self, amount):
         from django.db import transaction
