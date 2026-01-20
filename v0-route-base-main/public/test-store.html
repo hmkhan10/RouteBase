@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchant Store - RouteBases Cart Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: #0A0C10;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="p-10">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+            <h1 class="text-4xl font-black uppercase tracking-tighter text-emerald-400">Merchant Store</h1>
+            <p class="text-slate-500">Testing RouteBases Embedded Shopping Cart</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Product 1 -->
+            <div class="bg-white/5 border border-white/10 p-6 rounded-3xl space-y-4">
+                <div class="aspect-square bg-white/5 rounded-2xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"
+                        class="w-full h-full object-cover" alt="Premium Watch">
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold">Premium Watch</h2>
+                    <p class="text-emerald-400 font-black">PKR 15,000</p>
+                </div>
+                <button data-rb-id="prod_watch_001" data-rb-name="Premium Watch" data-rb-price="15000"
+                    data-rb-image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"
+                    class="w-full py-3 bg-white text-black font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-colors">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="bg-white/5 border border-white/10 p-6 rounded-3xl space-y-4">
+                <div class="aspect-square bg-white/5 rounded-2xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400"
+                        class="w-full h-full object-cover" alt="Studio Headphones">
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold">Studio Headphones</h2>
+                    <p class="text-emerald-400 font-black">PKR 8,500</p>
+                </div>
+                <button data-rb-id="prod_headphone_002" data-rb-name="Studio Headphones" data-rb-price="8500"
+                    data-rb-image="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400"
+                    class="w-full py-3 bg-white text-black font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-colors">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RouteBases Cart Integration -->
+    <script>
+        window.RB_MERCHANT_ID = 'hamad-maqbool'; // Test with current user's slug
+    </script>
+    <script src="/scripts/rb-cart.js"></script>
+</body>
+
+</html>

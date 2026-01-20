@@ -572,6 +572,28 @@ class CustomerPage(models.Model):
         sub = self.owner.UserSubscription
         return sub.is_active and not sub.is_expired and sub.plan.has_spa_routing
 
+class CartSession(models.Model):
+    STATUS_CHOICES = [
+        ('active', 'Active'),
+        ('abandoned', 'Abandoned'),
+        ('converted', 'Converted'),
+    ]
+    
+    merchant = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='cart_sessions')
+    session_id = models.CharField(max_length=100, unique=True)
+    items = models.JSONField(default=list)
+    total_amount = models.DecimalField(max_digits=12, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Cart {self.session_id} - {self.merchant.user.username}"
+
 class Order(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),

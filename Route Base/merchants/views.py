@@ -382,6 +382,7 @@ def dashboard(request):
         'chart_labels': chart_labels,
         'raast_count': my_txs.filter(payment_method='RAAST').count(),
         'sadabiz_count': my_txs.filter(payment_method='SADABIZ').count(),
+        'abandoned_carts': CartSession.objects.filter(merchant=seller, status='abandoned').count(),
     }
     return render(request, 'dashboard.html', context)
 @csrf_exempt
@@ -807,6 +808,34 @@ def pro_dashboard(request):
     }
     return render(request, 'pro_dashboard.html', context)
 # merchants/views.py
+@csrf_exempt
+@require_POST
+def create_cart_session(request):
+    try:
+        data = json.loads(request.body)
+        merchant_slug = data.get('merchantId')
+        items = data.get('items', [])
+        session_id = data.get('sessionId')
+        total_amount = data.get('totalAmount', 0)
+
+        merchant = get_object_or_404(Seller, page_slug=merchant_slug)
+        
+        cart_session = CartSession.objects.create(
+            merchant=merchant,
+            session_id=session_id,
+            items=items,
+            total_amount=Decimal(str(total_amount)),
+            status='active'
+        )
+
+        return JsonResponse({
+            "success": True, 
+            "message": "Cart session created",
+            "session_id": cart_session.session_id
+        })
+    except Exception as e:
+        return JsonResponse({"success": False, "message": str(e)}, status=500)
+
 def saas_plans_view(request):
     # This ensures a 'site' always exists for the logged-in user
     site, created = UserSubscription.objects.get_or_create(
