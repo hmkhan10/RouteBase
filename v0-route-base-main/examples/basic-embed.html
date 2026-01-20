@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RouteBase Cart - Basic Example</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            background: #f0f0f0;
+        }
+        
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .product-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+        
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .add-to-cart-btn:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            transform: translateY(-1px);
+        }
+        
+        .add-to-cart-btn:active {
+            transform: translateY(0);
+        }
+        
+        .integration-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .demo-notice {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="demo-notice">
+            🛒 <strong>RouteBase Embedded Cart Demo</strong> - Click "Add to Cart" on any product to see the cart in action!
+        </div>
+        
+        <h1>RouteBase Shopping Cart Integration</h1>
+        
+        <div class="integration-info">
+            <h3>📋 Integration Steps:</h3>
+            <ol>
+                <li>Include the RouteBase cart script</li>
+                <li>Initialize with your merchant ID</li>
+                <li>Add data attributes to your product buttons</li>
+            </ol>
+            
+            <div class="code-block">
+&lt;script src="/routebase-cart.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  RouteBaseCart.init('your-merchant-id', {
+    apiBaseUrl: 'https://your-domain.com',
+    theme: 'dark',
+    currency: 'PKR'
+  });
+&lt;/script&gt;
+            </div>
+        </div>
+        
+        <div class="products">
+            <div class="product-card">
+                <img src="https://picsum.photos/seed/product1/400/300.jpg" alt="Premium Widget" class="product-image">
+                <div class="product-name">Premium Widget</div>
+                <div class="product-price">PKR 2,999</div>
+                <button 
+                    data-rb-id="product-001" 
+                    data-rb-name="Premium Widget" 
+                    data-rb-price="2999"
+                    data-rb-image="https://picsum.photos/seed/product1/400/300.jpg"
+                    class="add-to-cart-btn">
+                    Add to Cart
+                </button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://picsum.photos/seed/product2/400/300.jpg" alt="Pro Gadget" class="product-image">
+                <div class="product-name">Pro Gadget</div>
+                <div class="product-price">PKR 4,599</div>
+                <button 
+                    data-rb-id="product-002" 
+                    data-rb-name="Pro Gadget" 
+                    data-rb-price="4599"
+                    data-rb-image="https://picsum.photos/seed/product2/400/300.jpg"
+                    class="add-to-cart-btn">
+                    Add to Cart
+                </button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://picsum.photos/seed/product3/400/300.jpg" alt="Deluxe Package" class="product-image">
+                <div class="product-name">Deluxe Package</div>
+                <div class="product-price">PKR 7,899</div>
+                <button 
+                    data-rb-id="product-003" 
+                    data-rb-name="Deluxe Package" 
+                    data-rb-price="7899"
+                    data-rb-image="https://picsum.photos/seed/product3/400/300.jpg"
+                    class="add-to-cart-btn">
+                    Add to Cart
+                </button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://picsum.photos/seed/product4/400/300.jpg" alt="Starter Kit" class="product-image">
+                <div class="product-name">Starter Kit</div>
+                <div class="product-price">PKR 1,299</div>
+                <button 
+                    data-rb-id="product-004" 
+                    data-rb-name="Starter Kit" 
+                    data-rb-price="1299"
+                    data-rb-image="https://picsum.photos/seed/product4/400/300.jpg"
+                    class="add-to-cart-btn">
+                    Add to Cart
+                </button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://picsum.photos/seed/product5/400/300.jpg" alt="Professional Suite" class="product-image">
+                <div class="product-name">Professional Suite</div>
+                <div class="product-price">PKR 12,999</div>
+                <button 
+                    data-rb-id="product-005" 
+                    data-rb-name="Professional Suite" 
+                    data-rb-price="12999"
+                    data-rb-image="https://picsum.photos/seed/product5/400/300.jpg"
+                    class="add-to-cart-btn">
+                    Add to Cart
+                </button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://picsum.photos/seed/product6/400/300.jpg" alt="Basic Plan" class="product-image">
+                <div class="product-name">Basic Plan</div>
+                <div class="product-price">PKR 899</div>
+                <button 
+                    data-rb-id="product-006" 
+                    data-rb-name="Basic Plan" 
+                    data-rb-price="899"
+                    data-rb-image="https://picsum.photos/seed/product6/400/300.jpg"
+                    class="add-to-cart-btn">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+        
+        <div class="integration-info" style="margin-top: 40px;">
+            <h3>🎯 Features Demonstrated:</h3>
+            <ul>
+                <li><strong>Floating Cart Button</strong>: Appears in bottom-right corner</li>
+                <li><strong>Slide-out Cart Sidebar</strong>: Smooth animation with cart items</li>
+                <li><strong>Item Management</strong>: Add, remove, and update quantities</li>
+                <li><strong>Persistent Storage</strong>: Cart saved in localStorage</li>
+                <li><strong>Responsive Design</strong>: Works on mobile and desktop</li>
+                <li><strong>Dark Theme</strong>: Modern Ghomoud Grey styling</li>
+                <li><strong>Checkout Integration</strong>: Connects to RouteBase backend</li>
+            </ul>
+            
+            <h3>🔧 Cart API Methods:</h3>
+            <div class="code-block">
+// Access cart programmatically
+RouteBaseCart.addToCart({...});
+RouteBaseCart.removeFromCart('product-id');
+RouteBaseCart.updateQuantity('product-id', 3);
+RouteBaseCart.calculateTotal();
+RouteBaseCart.toggleCart();
+            </div>
+        </div>
+    </div>
+    
+    <!-- Load RouteBase Cart -->
+    <script src="/routebase-cart.js"></script>
+    <script>
+        // Initialize the cart
+        RouteBaseCart.init('demo-merchant-123', {
+            apiBaseUrl: window.location.origin,
+            theme: 'dark',
+            currency: 'PKR'
+        });
+        
+        // Optional: Listen for cart events
+        window.addEventListener('routebase-cart-updated', (event) => {
+            console.log('Cart updated:', event.detail);
+        });
+        
+        window.addEventListener('routebase-cart-error', (event) => {
+            console.error('Cart error:', event.detail);
+        });
+    </script>
+</body>
+</html>

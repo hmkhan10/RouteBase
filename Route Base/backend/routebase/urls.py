@@ -7,6 +7,7 @@ from merchants import views
 from django.views.generic.base import RedirectView
 from ninja import NinjaAPI
 from merchants.api import router as merchants_router
+from users.api import router as users_router
 
 # Initialize Django Ninja API
 api = NinjaAPI(
@@ -17,6 +18,7 @@ api = NinjaAPI(
 
 # Include routers
 api.add_router("/", merchants_router)
+api.add_router("/users", users_router)
 
 urlpatterns = [
     path("api/", api.urls),
