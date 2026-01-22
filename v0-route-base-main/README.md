@@ -1,6 +1,6 @@
-# RouteBase Embedded Shopping Cart
+# RouteBases Embedded Shopping Cart
 
-A production-ready, lightweight JavaScript shopping cart library for RouteBase merchants. Add e-commerce functionality to any website with just a few lines of code.
+A production-ready, lightweight JavaScript shopping cart library for RouteBases merchants. Add e-commerce functionality to any website with just a few lines of code.
 
 ## ✨ Features
 
@@ -25,7 +25,7 @@ A production-ready, lightweight JavaScript shopping cart library for RouteBase m
 ### 2. Initialize the Cart
 
 ```javascript
-RouteBaseCart.init('your-merchant-id', {
+RouteBasesCart.init('your-merchant-id', {
   apiBaseUrl: 'https://your-domain.com',
   theme: 'dark',
   currency: 'PKR'
@@ -116,7 +116,7 @@ Complete documentation including:
 ## 🔧 Configuration
 
 ```javascript
-RouteBaseCart.init('merchant-id', {
+RouteBasesCart.init('merchant-id', {
   apiBaseUrl: 'https://api.routebase.com', // API endpoint
   theme: 'dark',                           // 'dark' | 'light'
   currency: 'PKR',                         // Currency code
@@ -214,7 +214,7 @@ python manage.py collectstatic
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Merchant Site │    │  RouteBase Cart │    │  RouteBase API  │
+│   Merchant Site │    │  RouteBases Cart │    │  RouteBases API  │
 │                 │    │                 │    │                 │
 │  • Product Page │◄──►│  • Cart Logic   │◄──►│  • Checkout     │
 │  • Add to Cart  │    │  • UI Components│    │  • Transactions │
@@ -236,7 +236,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- **Documentation**: [RouteBase Docs](https://docs.routebase.com)
+- **Documentation**: [RouteBases Docs](https://docs.routebase.com)
 - **Support Email**: support@routebase.com
 - **GitHub Issues**: [Report Issues](https://github.com/routebase/cart/issues)
 - **Community**: [Discord Server](https://discord.gg/routebase)
@@ -256,6 +256,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ by the RouteBase Team**
+**Built with ❤️ by the RouteBases Team**
 
 *Transforming e-commerce one cart at a time.*

@@ -35,8 +35,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             } else {
                 setUser(null);
             }
-        } catch (error) {
-            console.error('Failed to fetch user:', error);
+        } catch (error: any) {
+            // Don't log 401 errors as they're expected for unauthenticated users
+            if (!error.message || !error.message.includes('HTTP 401')) {
+                console.error('Failed to fetch user:', error);
+            }
             setUser(null);
         } finally {
             setIsLoading(false);
@@ -47,8 +50,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         refreshUser();
     }, []);
 
-    const login = (userData: any) => {
-        setUser(userData);
+    const login = async (userData: any) => {
+        try {
+            // First authenticate with the API
+            await apiClient.login(userData);
+            // Then refresh user data
+            await refreshUser();
+        } catch (error) {
+            console.error('Login failed:', error);
+            throw error;
+        }
     };
 
     const logout = async () => {

@@ -17,13 +17,13 @@ export async function generateMetadata(
 
   if (!merchant) {
     return {
-      title: "Merchant Not Found | RouteBase",
+      title: "Merchant Not Found | RouteBases",
     }
   }
 
   return {
-    title: `${merchant.businessName} | RouteBase Checkout`,
-    description: merchant.description || `Securely pay to ${merchant.businessName} via RouteBase.`,
+    title: `${merchant.businessName} | RouteBases Checkout`,
+    description: merchant.description || `Securely pay to ${merchant.businessName} via RouteBases.`,
     openGraph: {
       title: merchant.businessName,
       description: merchant.description,

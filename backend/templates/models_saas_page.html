@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RouteBase | Subscription Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020617; color: #f8fafc; }
+        .mesh-gradient {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.1) 0%, transparent 40%), #020617;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 3rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-5px);
+        }
+        .bubble-btn { border-radius: 9999px; font-weight: 800; text-transform: uppercase; transition: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="mesh-gradient"></div>
+    
+    <main class="max-w-6xl mx-auto py-20 px-6">
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-black tracking-tighter italic uppercase">Select Your <span class="text-blue-500">Tier.</span></h1>
+            <p class="text-slate-400 mt-4">Choose the plan that fits your business scale.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+            
+            <div class="glass-card p-10 flex flex-col">
+                <div class="mb-8">
+                    <h3 class="text-3xl font-black mb-4">Basic</h3>
+                    <p class="text-slate-400">Simple payment link for your platform.</p>
+                </div>
+                
+                <div class="text-4xl font-black mb-8">0 <span class="text-sm opacity-50 font-normal">PKR / Lifetime</span></div>
+                
+                <ul class="space-y-6 mb-12 flex-grow">
+                    <li class="flex items-center gap-4 text-slate-300 font-medium">
+                        <i class="fa-solid fa-circle-check text-emerald-500/80"></i> Standard SaaS UI
+                    </li>
+                    <li class="flex items-center gap-4 text-slate-300 font-medium">
+                        <i class="fa-solid fa-circle-check text-emerald-500/80"></i> Single Payment Page
+                    </li>
+                </ul>
+                
+                {% if site.slug %}
+    <a href="{% url 'merchants:hoster_view' site_slug=site.slug %}" 
+       class="bubble-btn w-full py-4 bg-white/10 text-center hover:bg-white hover:text-black transition-all">
+       Activate Free
+    </a>
+{% else %}
+    <button class="w-full py-4 bg-red-900/20 text-red-400 border border-red-500/30 rounded-xl">
+       NO SLUG FOUND
+    </button>
+{% endif %}
+            </div>
+
+            <div class="glass-card p-10 flex flex-col border-blue-500/30 ring-1 ring-blue-500/20">
+                <div class="mb-8">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-3xl font-black mb-4">Pro</h3>
+                        <span class="bg-blue-600 text-[10px] px-3 py-1 rounded-full uppercase font-black tracking-widest">Popular</span>
+                    </div>
+                    <p class="text-slate-400">Multi-plan hosting & enterprise routing.</p>
+                </div>
+
+                <div class="text-4xl font-black mb-8 text-blue-500">4,500 <span class="text-sm opacity-50 font-normal text-white">PKR / Month</span></div>
+
+                <ul class="space-y-6 mb-12 flex-grow">
+                    <li class="flex items-center gap-4 text-white font-semibold">
+                        <i class="fa-solid fa-bolt-lightning text-blue-500"></i> Single Page Routing (SPA)
+                    </li>
+                    <li class="flex items-center gap-4 text-white font-semibold">
+                        <i class="fa-solid fa-bolt-lightning text-blue-500"></i> Advanced Admin Dashboard
+                    </li>
+                    <li class="flex items-center gap-4 text-white font-semibold">
+                        <i class="fa-solid fa-bolt-lightning text-blue-500"></i> Custom Domain Support
+                    </li>
+                </ul>
+
+                <button onclick="showCheckout()" 
+                        class="bubble-btn w-full py-4 bg-blue-600 text-center text-white hover:bg-blue-500 shadow-lg shadow-blue-500/20">
+                    Get Pro Access
+                </button>
+            </div>
+        </div>
+
+        <div id="checkout-section" class="hidden max-w-xl mx-auto glass-card p-10 border-blue-500/50 animate-in fade-in slide-in-from-bottom-10 duration-500">
+            <div class="flex items-center gap-4 mb-8">
+                <i class="fa-solid fa-shield-halved text-blue-500 text-2xl"></i>
+                <h3 class="text-xl font-black mb-0 uppercase italic">Secure Checkout</h3>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="space-y-2">
+                    <label class="text-xs uppercase font-bold text-slate-500 ml-2">Account Details</label>
+                    <input type="text" placeholder="Account Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-500 transition-all">
+                </div>
+                
+                <div class="space-y-2">
+                    <input type="text" id="acc-num" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
+                           placeholder="Account Number (16 Digits)" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none font-mono focus:border-blue-500 transition-all">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" placeholder="MM/YY" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-500 transition-all">
+                    <input type="password" maxlength="3" placeholder="CVC" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-500 transition-all">
+                </div>
+
+                <a href="{% url 'merchants:get_payment_step' plan_type='PRO' %}" 
+                   class="bubble-btn w-full py-5 bg-blue-600 block text-center mt-6 shadow-xl hover:scale-[1.02] active:scale-[0.98]">
+                   Confirm & Pay 4,500 PKR
+                </a>
+                
+                <p class="text-[10px] text-center text-slate-500 mt-4 uppercase tracking-widest font-bold">
+                    <i class="fa-solid fa-lock mr-1"></i> Encrypted by Paymob Gateway
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showCheckout() {
+            const section = document.getElementById('checkout-section');
+            section.classList.remove('hidden');
+            // Smooth scroll to the checkout area
+            section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>

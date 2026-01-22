@@ -1,0 +1,39 @@
+# Core
+Django==4.2.7
+djangorestframework==3.14.0
+
+# Database
+psycopg2-binary==2.9.7
+dj-database-url==2.0.0
+
+# Static files & Media
+whitenoise==6.4.0
+Pillow==10.0.0
+django-storages==1.13.2
+boto3==1.28.57
+
+# Security & CORS
+django-cors-headers==4.2.0
+django-sslserver==0.22
+
+# Email
+django-anymail==10.1
+
+# Environment
+python-dotenv==1.0.0
+
+# Production
+gunicorn==21.2.0
+uvicorn==0.23.2
+
+# Monitoring
+sentry-sdk==1.31.0
+
+# Utilities
+celery==5.3.1
+redis==5.0.1
+django-redis==5.2.0
+
+# Development (optional)
+django-debug-toolbar==4.2.0
+django-extensions==3.2.3

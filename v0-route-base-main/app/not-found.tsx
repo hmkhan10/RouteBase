@@ -4,7 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { GlassCard } from "@/components/glass-card"
-import { RouteBaseLogo } from "@/components/routebase-logo"
+import { RouteBasesLogo } from "@/components/routebase-logo"
 import { Home, Search, ArrowLeft } from "lucide-react"
 
 export default function NotFound() {
@@ -51,7 +51,7 @@ export default function NotFound() {
                     </GlassCard>
 
                     <div className="mt-12 flex justify-center">
-                        <RouteBaseLogo size="sm" />
+                        <RouteBasesLogo size="sm" />
                     </div>
                 </motion.div>
             </div>

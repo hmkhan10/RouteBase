@@ -2,13 +2,13 @@
 
 import { cn } from "@/lib/utils"
 
-interface RouteBaseLogoProps {
+interface RouteBasesLogoProps {
   className?: string
   size?: "sm" | "md" | "lg"
   showText?: boolean
 }
 
-export function RouteBaseLogo({ className, size = "md", showText = true }: RouteBaseLogoProps) {
+export function RouteBasesLogo({ className, size = "md", showText = true }: RouteBasesLogoProps) {
   const sizes = {
     sm: "h-8 w-8",
     md: "h-10 w-10",
@@ -36,7 +36,7 @@ export function RouteBaseLogo({ className, size = "md", showText = true }: Route
       </div>
       {showText && (
         <span className={cn("font-black tracking-tight uppercase italic text-foreground", textSizes[size])}>
-          RouteBase
+          RouteBases
         </span>
       )}
     </div>

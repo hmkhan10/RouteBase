@@ -1,0 +1,25 @@
+<div class="launch-container" style="background: #000; height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Inter';">
+    <div style="width: 90%; max-width: 1000px;">
+        <h2 style="color: white; font-weight: 300; margin-bottom: 30px;">Choose a starting point</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;">
+            <div class="card" onclick="window.location.href='/builder?type=new'">
+                <div class="card-icon"><i class="fa-solid fa-plus"></i></div>
+                <h3>Blank Canvas</h3>
+                <p>Full design control from zero.</p>
+            </div>
+
+            <div class="card" onclick="window.location.href='/builder?template=school'">
+                <div class="card-preview school-bg"></div>
+                <h3>School Master</h3>
+                <p>Optimized for education & fees.</p>
+            </div>
+
+            <div class="card" onclick="window.location.href='/builder?template=business'">
+                <div class="card-preview biz-bg"></div>
+                <h3>Glass Business</h3>
+                <p>High-end corporate layouts.</p>
+            </div>
+        </div>
+    </div>
+</div>

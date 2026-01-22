@@ -2,11 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 import uuid
+from simple_history.models import HistoricalRecords
 from django.utils.text import slugify
 from django.db.models import JSONField  # Native Django JSONField
 from decimal import Decimal
 from datetime import timedelta
 from django.conf import settings
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    tokens_remaining = models.IntegerField(default=5000000)
+    history = HistoricalRecords()
 class MerchantPage(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     admin_name = models.CharField(max_length=100)

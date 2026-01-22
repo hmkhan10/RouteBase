@@ -1,12 +1,12 @@
-# RouteBase Embedded Shopping Cart Integration Guide
+# RouteBases Embedded Shopping Cart Integration Guide
 
 ## Overview
 
-The RouteBase Embedded Shopping Cart is a production-ready JavaScript library that allows merchants to easily add e-commerce functionality to any website with just a few lines of code. The system includes:
+The RouteBases Embedded Shopping Cart is a production-ready JavaScript library that allows merchants to easily add e-commerce functionality to any website with just a few lines of code. The system includes:
 
 - **Merchant Client Script**: Lightweight JavaScript snippet for embedding
 - **Cart Logic**: Full cart functionality with localStorage persistence
-- **Checkout & Dashboard Sync**: Seamless integration with RouteBase backend
+- **Checkout & Dashboard Sync**: Seamless integration with RouteBases backend
 - **Modern UI**: Sleek dark-themed design with smooth animations
 
 ## Quick Start
@@ -23,7 +23,7 @@ The RouteBase Embedded Shopping Cart is a production-ready JavaScript library th
 ```html
 <script>
   // Initialize the cart with your merchant ID
-  RouteBaseCart.init('your-merchant-id', {
+  RouteBasesCart.init('your-merchant-id', {
     apiBaseUrl: 'https://your-domain.com', // Optional, defaults to current domain
     theme: 'dark', // Optional, defaults to 'dark'
     currency: 'PKR' // Optional, defaults to 'PKR'
@@ -50,7 +50,7 @@ The RouteBase Embedded Shopping Cart is a production-ready JavaScript library th
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `merchantId` | string | Required | Your unique RouteBase merchant ID |
+| `merchantId` | string | Required | Your unique RouteBases merchant ID |
 | `apiBaseUrl` | string | Current domain | Base URL for API calls |
 | `theme` | string | 'dark' | UI theme ('dark' or 'light') |
 | `currency` | string | 'PKR' | Currency code for display |
@@ -70,7 +70,7 @@ The RouteBase Embedded Shopping Cart is a production-ready JavaScript library th
 
 ```javascript
 // Add item to cart
-RouteBaseCart.addToCart({
+RouteBasesCart.addToCart({
   id: 'product-123',
   name: 'Premium Widget',
   price: 2999,
@@ -79,35 +79,35 @@ RouteBaseCart.addToCart({
 });
 
 // Remove item from cart
-RouteBaseCart.removeFromCart('product-123');
+RouteBasesCart.removeFromCart('product-123');
 
 // Update item quantity
-RouteBaseCart.updateQuantity('product-123', 3);
+RouteBasesCart.updateQuantity('product-123', 3);
 
 // Calculate cart total
-const total = RouteBaseCart.calculateTotal();
+const total = RouteBasesCart.calculateTotal();
 
 // Toggle cart sidebar
-RouteBaseCart.toggleCart();
+RouteBasesCart.toggleCart();
 
 // Open cart
-RouteBaseCart.openCart();
+RouteBasesCart.openCart();
 
 // Close cart
-RouteBaseCart.closeCart();
+RouteBasesCart.closeCart();
 ```
 
 ### Cart State
 
 ```javascript
 // Access current cart items
-console.log(RouteBaseCart.cart);
+console.log(RouteBasesCart.cart);
 
 // Check if cart is open
-console.log(RouteBaseCart.isOpen);
+console.log(RouteBasesCart.isOpen);
 
 // Get configuration
-console.log(RouteBaseCart.config);
+console.log(RouteBasesCart.config);
 ```
 
 ## React Integration
@@ -119,14 +119,14 @@ import { useEffect } from 'react';
 
 const ShoppingCartProvider = ({ merchantId, children }) => {
   useEffect(() => {
-    // Load RouteBase cart script
+    // Load RouteBases cart script
     const script = document.createElement('script');
     script.src = '/routebase-cart.js';
     script.async = true;
     
     script.onload = () => {
       // Initialize cart
-      window.RouteBaseCart.init(merchantId, {
+      window.RouteBasesCart.init(merchantId, {
         apiBaseUrl: process.env.REACT_APP_API_URL,
         theme: 'dark',
         currency: 'PKR'
@@ -186,7 +186,7 @@ function MyApp({ Component, pageProps }) {
         src="/routebase-cart.js"
         strategy="afterInteractive"
         onLoad={() => {
-          window.RouteBaseCart.init('your-merchant-id', {
+          window.RouteBasesCart.init('your-merchant-id', {
             apiBaseUrl: process.env.NEXT_PUBLIC_API_URL,
             theme: 'dark',
             currency: 'PKR'
@@ -206,13 +206,13 @@ export default MyApp;
 ```jsx
 import { useEffect, useState } from 'react';
 
-const useRouteBaseCart = (merchantId, config = {}) => {
+const useRouteBasesCart = (merchantId, config = {}) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const checkCartLoaded = () => {
-      if (window.RouteBaseCart) {
-        window.RouteBaseCart.init(merchantId, {
+      if (window.RouteBasesCart) {
+        window.RouteBasesCart.init(merchantId, {
           apiBaseUrl: process.env.NEXT_PUBLIC_API_URL,
           theme: 'dark',
           currency: 'PKR',
@@ -229,19 +229,19 @@ const useRouteBaseCart = (merchantId, config = {}) => {
 
   return {
     isLoaded,
-    cart: window.RouteBaseCart?.cart || [],
-    isOpen: window.RouteBaseCart?.isOpen || false,
-    addToCart: window.RouteBaseCart?.addToCart,
-    removeFromCart: window.RouteBaseCart?.removeFromCart,
-    updateQuantity: window.RouteBaseCart?.updateQuantity,
-    calculateTotal: window.RouteBaseCart?.calculateTotal,
-    toggleCart: window.RouteBaseCart?.toggleCart
+    cart: window.RouteBasesCart?.cart || [],
+    isOpen: window.RouteBasesCart?.isOpen || false,
+    addToCart: window.RouteBasesCart?.addToCart,
+    removeFromCart: window.RouteBasesCart?.removeFromCart,
+    updateQuantity: window.RouteBasesCart?.updateQuantity,
+    calculateTotal: window.RouteBasesCart?.calculateTotal,
+    toggleCart: window.RouteBasesCart?.toggleCart
   };
 };
 
 // Usage
 const ProductPage = () => {
-  const { addToCart } = useRouteBaseCart('your-merchant-id');
+  const { addToCart } = useRouteBasesCart('your-merchant-id');
 
   const handleAddToCart = () => {
     addToCart({
@@ -370,7 +370,7 @@ The cart is fully responsive and includes:
 Enable debug mode for detailed logging:
 
 ```javascript
-RouteBaseCart.init('your-merchant-id', {
+RouteBasesCart.init('your-merchant-id', {
   debug: true
 });
 ```
@@ -394,9 +394,9 @@ window.addEventListener('routebase-cart-updated', (event) => {
 
 For integration support and questions:
 
-- Documentation: [RouteBase Docs](https://docs.routebase.com)
+- Documentation: [RouteBases Docs](https://docs.routebase.com)
 - Support: support@routebase.com
-- GitHub Issues: [RouteBase Cart Issues](https://github.com/routebase/cart/issues)
+- GitHub Issues: [RouteBases Cart Issues](https://github.com/routebase/cart/issues)
 
 ## License
 

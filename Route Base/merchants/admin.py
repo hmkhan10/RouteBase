@@ -1,6 +1,21 @@
 from django.contrib import admin
 from .models import UserSubscription, Merchant
+from django.db.models import Sum
 
+@admin.register(Transaction)
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ('user', 'amount', 'platform_fee', 'status', 'created_at')
+
+    # This adds a "Total Profit" box at the bottom of the page
+    def changelist_view(self, request, extra_context=None):
+        result = Transaction.objects.aggregate(
+            total_revenue=Sum('amount'),
+            total_profit=Sum('platform_fee')
+        )
+        extra_context = extra_context or {}
+        extra_context['revenue'] = result['total_revenue']
+        extra_context['profit'] = result['total_profit']
+        return super().changelist_view(request, extra_context=extra_context)
 @admin.register(UserSubscription)
 class UserSubscriptionAdmin(admin.ModelAdmin):
     list_display = ('user', 'plan', 'slug', 'is_active', 'expiry_date')

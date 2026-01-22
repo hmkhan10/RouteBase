@@ -4,7 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
-import { RouteBaseLogo } from "@/components/routebase-logo"
+import { RouteBasesLogo } from "@/components/routebase-logo"
 import { GlassCard } from "@/components/glass-card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -61,7 +61,7 @@ export default function ResetPasswordConfirmPage() {
             >
                 <div className="text-center mb-8">
                     <Link href="/">
-                        <RouteBaseLogo className="justify-center mb-6" />
+                        <RouteBasesLogo className="justify-center mb-6" />
                     </Link>
                 </div>
 

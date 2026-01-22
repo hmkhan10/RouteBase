@@ -4,7 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { GlassCard } from "@/components/glass-card"
-import { RouteBaseLogo } from "@/components/routebase-logo"
+import { RouteBasesLogo } from "@/components/routebase-logo"
 import { Navbar } from "@/components/navbar"
 import { Zap, Shield, BarChart3, CreditCard, Users, TrendingUp, ArrowRight, Check, Store, Cloud } from "lucide-react"
 
@@ -131,13 +131,13 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-              RouteBase is a sophisticated financial orchestration layer engineered to catalyze economic velocity.
+              RouteBases is a sophisticated financial orchestration layer engineered to catalyze economic velocity.
               By synthesizing high-frequency e-commerce with the complex recurring logic of the subscription economy,
               we provide a unified neural infrastructure for the modern Pakistani enterprise.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <Link href="/register">
+              <Link href="/signup">
                 <Button
                   size="lg"
                   className="bg-emerald-500 hover:bg-emerald-600 font-bold uppercase tracking-widest px-8 py-6 text-sm"
@@ -249,7 +249,7 @@ export default function LandingPage() {
             <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase">The Financial Synapse</h2>
             <div className="h-px w-24 bg-gradient-to-r from-transparent via-emerald-500 to-transparent mx-auto" />
             <p className="text-xl text-muted-foreground leading-relaxed font-light italic">
-              "We don't just process payments; we orchestrate economic velocity. RouteBase exists at the intersection of
+              "We don't just process payments; we orchestrate economic velocity. RouteBases exists at the intersection of
               high-frequency commerce and recurring value, providing the neural infrastructure required for a sovereign
               financial future in Pakistan."
             </p>
@@ -335,16 +335,37 @@ export default function LandingPage() {
                     ))}
                   </ul>
 
-                  <Link href="/register">
-                    <Button
-                      className={`w-full font-bold uppercase tracking-widest text-xs py-5 ${plan.popular
-                        ? "bg-emerald-500 hover:bg-emerald-600"
-                        : "bg-white/5 hover:bg-white/10 border border-white/10"
-                        }`}
-                    >
-                      {plan.cta}
-                    </Button>
-                  </Link>
+                  {plan.name === "Basic" ? (
+                    <Link href="/payment-setup">
+                      <Button
+                        className="w-full font-bold uppercase tracking-widest text-xs py-5 bg-emerald-500 hover:bg-emerald-600"
+                      >
+                        {plan.cta}
+                      </Button>
+                    </Link>
+                  ) : plan.name.includes("SaaS") ? (
+                    <Link href="/saas-payment">
+                      <Button
+                        className={`w-full font-bold uppercase tracking-widest text-xs py-5 ${plan.popular
+                          ? "bg-blue-500 hover:bg-blue-600"
+                          : "bg-white/5 hover:bg-white/10 border border-white/10"
+                          }`}
+                      >
+                        {plan.cta}
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link href="/payment-setup">
+                      <Button
+                        className={`w-full font-bold uppercase tracking-widest text-xs py-5 ${plan.popular
+                          ? "bg-emerald-500 hover:bg-emerald-600"
+                          : "bg-white/5 hover:bg-white/10 border border-white/10"
+                          }`}
+                      >
+                        {plan.cta}
+                      </Button>
+                    </Link>
+                  )}
                 </GlassCard>
               </motion.div>
             ))}
@@ -358,9 +379,9 @@ export default function LandingPage() {
           <GlassCard className="p-12 rounded-3xl text-center">
             <h2 className="text-3xl md:text-4xl font-black mb-4">Ready to Transform Your Payments?</h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Join hundreds of Pakistani businesses already using RouteBase to power their payment infrastructure.
+              Join hundreds of Pakistani businesses already using RouteBases to power their payment infrastructure.
             </p>
-            <Link href="/register">
+            <Link href="/signup">
               <Button
                 size="lg"
                 className="bg-emerald-500 hover:bg-emerald-600 font-bold uppercase tracking-widest px-12 py-6"
@@ -377,8 +398,8 @@ export default function LandingPage() {
       <footer className="py-12 px-6 border-t border-white/5">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-4">
-            <RouteBaseLogo size="sm" />
-            <span className="text-muted-foreground text-sm">© 2025 RouteBase. All rights reserved.</span>
+            <RouteBasesLogo size="sm" />
+            <span className="text-muted-foreground text-sm">© 2025 RouteBases. All rights reserved.</span>
           </div>
           <div className="flex items-center gap-6 text-muted-foreground text-sm">
             <Link href="/privacy" className="hover:text-foreground transition-colors">

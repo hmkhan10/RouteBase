@@ -12,7 +12,7 @@ trap cleanup SIGINT SIGTERM
 # Start Django Backend
 echo "🚀 Starting Django Backend on port 8000..."
 cd "Route Base/backend"
-source ../venv_new/bin/activate
+source "../venv_new/bin/activate"
 python manage.py migrate
 python manage.py runserver 0.0.0.0:8000 &
 DJANGO_PID=$!

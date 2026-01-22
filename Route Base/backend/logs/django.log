@@ -11653,3 +11653,1081 @@ Traceback (most recent call last):
     raise ConnectionError(self._error_message(e))
 redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:6379. Connection refused.
 "GET /api/hello/ HTTP/1.1" 500 181223
+Internal Server Error: /build-page/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/fields/__init__.py", line 2128, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'SimpleLazyObject'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 925, in build_page
+    sub = UserSubscription.objects.get(user=request.user)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 625, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 1542, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 1560, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 1570, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1671, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1703, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1613, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1440, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/lookups.py", line 35, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/fields/related_lookups.py", line 113, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/fields/__init__.py", line 2130, in get_prep_value
+    raise e.__class__(
+TypeError: Field 'id' expected a number but got <SimpleLazyObject: <django.contrib.auth.models.AnonymousUser object at 0x79ee820718b0>>.
+"POST /build-page/ HTTP/1.1" 500 152184
+Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 181, in login_view
+    return render(request, 'login.html')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/base.py", line 644, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Template: /home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/backend/templates/login.html, Invalid block tag on line 7: 'static'. Did you forget to register or load this tag?
+"GET /login/ HTTP/1.1" 500 172937
+Internal Server Error: /pro-dashboard/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 851, in pro_dashboard
+    return render(request, 'pro_dashboard.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/template/base.py", line 644, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Template: /home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/backend/templates/pro_dashboard.html, Invalid block tag on line 5: 'static'. Did you forget to register or load this tag?
+"GET /pro-dashboard/ HTTP/1.1" 500 173547
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 101, in register
+    if User.objects.filter(username=username).exists():
+       ^^^^
+NameError: name 'User' is not defined
+"POST /register/ HTTP/1.1" 500 86421
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 101, in register
+    if User.objects.filter(username=username).exists():
+       ^^^^
+NameError: name 'User' is not defined
+"POST /register/ HTTP/1.1" 500 86421
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 101, in register
+    if User.objects.filter(username=username).exists():
+       ^^^^
+NameError: name 'User' is not defined
+"POST /register/ HTTP/1.1" 500 83608
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 101, in register
+    if User.objects.filter(username=username).exists():
+       ^^^^
+NameError: name 'User' is not defined
+"POST /register/ HTTP/1.1" 500 83612
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 101, in register
+    if User.objects.filter(username=username).exists():
+       ^^^^
+NameError: name 'User' is not defined
+"POST /register/ HTTP/1.1" 500 83664
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 101, in register
+    if User.objects.filter(username=username).exists():
+       ^^^^
+NameError: name 'User' is not defined
+"POST /register/ HTTP/1.1" 500 83664
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 101, in register
+    if User.objects.filter(username=username).exists():
+       ^^^^
+NameError: name 'User' is not defined
+"POST /register/ HTTP/1.1" 500 83664
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 101, in register
+    if User.objects.filter(username=username).exists():
+       ^^^^
+NameError: name 'User' is not defined
+"POST /register/ HTTP/1.1" 500 83664
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 101, in register
+    if User.objects.filter(username=username).exists():
+       ^^^^
+NameError: name 'User' is not defined
+"POST /register/ HTTP/1.1" 500 83664
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98113
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98113
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98129
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98121
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98129
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98145
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98201
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98145
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98145
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98145
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98145
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98169
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98169
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 57, in _get_backend_from_user
+    backend = backend or user.backend
+                         ^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'backend'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 109, in register
+    login(request, user)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 189, in login
+    backend = _get_backend_from_user(user=user, backend=backend)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/__init__.py", line 63, in _get_backend_from_user
+    raise ValueError(
+ValueError: You have multiple authentication backends configured and therefore must provide the `backend` argument or set the `backend` attribute on the user.
+"POST /register/ HTTP/1.1" 500 98169
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 639, in get
+    raise self.model.DoesNotExist(
+merchants.models.Seller.DoesNotExist: Seller matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: merchants_seller.phone
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 116, in register
+    Seller.objects.get_or_create(
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 994, in get_or_create
+    return self.create(**params), True
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 874, in save
+    self.save_base(
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 966, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 1167, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 1218, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: merchants_seller.phone
+"POST /register/ HTTP/1.1" 500 211383
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 639, in get
+    raise self.model.DoesNotExist(
+merchants.models.Seller.DoesNotExist: Seller matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: merchants_seller.phone
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 116, in register
+    Seller.objects.get_or_create(
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 994, in get_or_create
+    return self.create(**params), True
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 874, in save
+    self.save_base(
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 966, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 1167, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 1218, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: merchants_seller.phone
+"POST /register/ HTTP/1.1" 500 211383
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 639, in get
+    raise self.model.DoesNotExist(
+merchants.models.Seller.DoesNotExist: Seller matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: merchants_seller.phone
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/RouteBase/Route Base/merchants/views.py", line 120, in register
+    Seller.objects.get_or_create(
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 994, in get_or_create
+    return self.create(**params), True
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 874, in save
+    self.save_base(
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 966, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 1167, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/base.py", line 1218, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 359, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: merchants_seller.phone
+"POST /register/ HTTP/1.1" 500 211697
+Failed to send password reset email to 22
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/contrib/auth/forms.py", line 417, in send_mail
+    email_message.send()
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/django/core/mail/message.py", line 358, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/anymail/backends/base.py", line 141, in send_messages
+    sent = self._send(message)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/anymail/backends/base_requests.py", line 51, in _send
+    return super()._send(message)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/anymail/backends/base.py", line 171, in _send
+    response = self.post_to_esp(payload, message)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/anymail/backends/base_requests.py", line 108, in post_to_esp
+    self.raise_for_status(response, payload, message)
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/anymail/backends/base_requests.py", line 119, in raise_for_status
+    raise AnymailRequestsAPIError(
+anymail.exceptions.AnymailRequestsAPIError: Resend API response 401 (Unauthorized):
+{
+  "statusCode": 401,
+  "name": "validation_error",
+  "message": "API key is invalid"
+}
+1 validation error for NinjaResponseSchema
+response.expiry_date
+  Input should be a valid datetime [type=datetime_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/datetime_type
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/ninja/operation.py", line 135, in run
+    return self._result_to_response(request, result, temporal_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/ninja/operation.py", line 280, in _result_to_response
+    validated_object = response_model.model_validate(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/pydantic/main.py", line 716, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NinjaResponseSchema
+response.expiry_date
+  Input should be a valid datetime [type=datetime_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/datetime_type
+Internal Server Error: /api/subscription/
+"GET /api/subscription/ HTTP/1.1" 500 1220
+1 validation error for NinjaResponseSchema
+response.expiry_date
+  Input should be a valid datetime [type=datetime_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/datetime_type
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/ninja/operation.py", line 135, in run
+    return self._result_to_response(request, result, temporal_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/ninja/operation.py", line 280, in _result_to_response
+    validated_object = response_model.model_validate(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/pydantic/main.py", line 716, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NinjaResponseSchema
+response.expiry_date
+  Input should be a valid datetime [type=datetime_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/datetime_type
+Internal Server Error: /api/subscription/
+"GET /api/subscription/ HTTP/1.1" 500 1220
+1 validation error for NinjaResponseSchema
+response.expiry_date
+  Input should be a valid datetime [type=datetime_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/datetime_type
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/ninja/operation.py", line 135, in run
+    return self._result_to_response(request, result, temporal_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/ninja/operation.py", line 280, in _result_to_response
+    validated_object = response_model.model_validate(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/pydantic/main.py", line 716, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NinjaResponseSchema
+response.expiry_date
+  Input should be a valid datetime [type=datetime_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/datetime_type
+Internal Server Error: /api/subscription/
+"GET /api/subscription/ HTTP/1.1" 500 1220
+1 validation error for NinjaResponseSchema
+response.expiry_date
+  Input should be a valid datetime [type=datetime_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/datetime_type
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/ninja/operation.py", line 135, in run
+    return self._result_to_response(request, result, temporal_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/ninja/operation.py", line 280, in _result_to_response
+    validated_object = response_model.model_validate(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/pydantic/main.py", line 716, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NinjaResponseSchema
+response.expiry_date
+  Input should be a valid datetime [type=datetime_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/datetime_type
+Internal Server Error: /api/subscription/
+"GET /api/subscription/ HTTP/1.1" 500 1220
+1 validation error for NinjaResponseSchema
+response.expiry_date
+  Input should be a valid datetime [type=datetime_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/datetime_type
+Traceback (most recent call last):
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/ninja/operation.py", line 135, in run
+    return self._result_to_response(request, result, temporal_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/ninja/operation.py", line 280, in _result_to_response
+    validated_object = response_model.model_validate(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hamad-maqbool/Documents/python verse/python randoms/RouteBase parent/Route Base/venv_new/lib/python3.12/site-packages/pydantic/main.py", line 716, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NinjaResponseSchema
+response.expiry_date
+  Input should be a valid datetime [type=datetime_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.12/v/datetime_type
+Internal Server Error: /api/subscription/
+"GET /api/subscription/ HTTP/1.1" 500 1220

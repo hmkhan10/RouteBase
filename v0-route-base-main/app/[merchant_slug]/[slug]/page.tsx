@@ -46,8 +46,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${merchant.store_name} - RouteBase`,
-    description: `Visit ${merchant.store_name} on RouteBase`,
+    title: `${merchant.store_name} - RouteBases`,
+    description: `Visit ${merchant.store_name} on RouteBases`,
   }
 }
 

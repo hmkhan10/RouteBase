@@ -14,9 +14,21 @@ import {
     CheckCircle2,
     Clock,
     XCircle,
-    ChevronRight
+    ChevronRight,
+    Edit2,
+    Save,
+    X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
+interface UserProfile {
+    username: string;
+    email: string;
+    first_name?: string;
+    last_name?: string;
+}
 
 interface Order {
     id: number;
@@ -29,9 +41,33 @@ interface Order {
 export default function ProfilePage() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState<'profile' | 'orders'>('orders');
+    const [activeTab, setActiveTab] = useState<'profile' | 'orders'>('profile');
+    const [profile, setProfile] = useState<UserProfile>({
+        username: '',
+        email: '',
+        first_name: '',
+        last_name: ''
+    });
+    const [isEditing, setIsEditing] = useState(false);
+    const [editForm, setEditForm] = useState<UserProfile>({
+        username: '',
+        email: '',
+        first_name: '',
+        last_name: ''
+    });
+    const [updateLoading, setUpdateLoading] = useState(false);
 
     useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const data = await apiClient.getCurrentUser();
+                setProfile(data);
+                setEditForm(data);
+            } catch (error) {
+                console.error('Failed to fetch user profile', error);
+            }
+        };
+
         const fetchOrders = async () => {
             try {
                 const data = await apiClient.getOrderHistory();
@@ -43,8 +79,38 @@ export default function ProfilePage() {
             }
         };
 
+        fetchUserData();
         fetchOrders();
     }, []);
+
+    const handleEdit = () => {
+        setEditForm(profile);
+        setIsEditing(true);
+    };
+
+    const handleCancel = () => {
+        setEditForm(profile);
+        setIsEditing(false);
+    };
+
+    const handleSave = async () => {
+        setUpdateLoading(true);
+        try {
+            await apiClient.updateProfile(editForm);
+            setProfile(editForm);
+            setIsEditing(false);
+        } catch (error) {
+            console.error('Failed to update profile', error);
+            alert('Failed to update profile. Please try again.');
+        } finally {
+            setUpdateLoading(false);
+        }
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setEditForm(prev => ({ ...prev, [name]: value }));
+    };
 
     const getStatusIcon = (status: string) => {
         switch (status.toLowerCase()) {
@@ -91,21 +157,110 @@ export default function ProfilePage() {
                                     <p className="text-muted-foreground">Manage your personal information</p>
                                 </div>
                             </div>
-                            <div className="space-y-6">
-                                <div className="grid grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Username</label>
-                                        <div className="p-4 bg-white/5 rounded-xl border border-white/5 text-sm font-medium">hamad-maqbool</div>
+                            
+                            {isEditing ? (
+                                <div className="space-y-6">
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Username</Label>
+                                            <Input
+                                                name="username"
+                                                value={editForm.username}
+                                                onChange={handleInputChange}
+                                                className="p-4 bg-white/5 rounded-xl border border-white/5 text-sm font-medium"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Email</Label>
+                                            <Input
+                                                name="email"
+                                                type="email"
+                                                value={editForm.email}
+                                                onChange={handleInputChange}
+                                                className="p-4 bg-white/5 rounded-xl border border-white/5 text-sm font-medium"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">First Name</Label>
+                                            <Input
+                                                name="first_name"
+                                                value={editForm.first_name || ''}
+                                                onChange={handleInputChange}
+                                                className="p-4 bg-white/5 rounded-xl border border-white/5 text-sm font-medium"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Last Name</Label>
+                                            <Input
+                                                name="last_name"
+                                                value={editForm.last_name || ''}
+                                                onChange={handleInputChange}
+                                                className="p-4 bg-white/5 rounded-xl border border-white/5 text-sm font-medium"
+                                            />
+                                        </div>
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Email</label>
-                                        <div className="p-4 bg-white/5 rounded-xl border border-white/5 text-sm font-medium">hamad@example.com</div>
+                                    <div className="flex gap-4">
+                                        <Button
+                                            onClick={handleSave}
+                                            disabled={updateLoading}
+                                            className="bg-emerald-500 hover:bg-emerald-600 text-black px-8 py-6 font-bold uppercase tracking-widest text-xs rounded-xl"
+                                        >
+                                            {updateLoading ? (
+                                                <span className="flex items-center gap-2">
+                                                    <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                                                    Saving...
+                                                </span>
+                                            ) : (
+                                                <span className="flex items-center gap-2">
+                                                    <Save className="w-4 h-4" />
+                                                    Save Changes
+                                                </span>
+                                            )}
+                                        </Button>
+                                        <Button
+                                            onClick={handleCancel}
+                                            variant="outline"
+                                            className="border-white/10 rounded-xl px-8 py-6 font-bold uppercase tracking-widest text-xs"
+                                        >
+                                            <span className="flex items-center gap-2">
+                                                <X className="w-4 h-4" />
+                                                Cancel
+                                            </span>
+                                        </Button>
                                     </div>
                                 </div>
-                                <Button variant="outline" className="border-white/10 rounded-xl px-8 py-6 font-bold uppercase tracking-widest text-xs">
-                                    Update Profile
-                                </Button>
-                            </div>
+                            ) : (
+                                <div className="space-y-6">
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Username</label>
+                                            <div className="p-4 bg-white/5 rounded-xl border border-white/5 text-sm font-medium">{profile.username}</div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Email</label>
+                                            <div className="p-4 bg-white/5 rounded-xl border border-white/5 text-sm font-medium">{profile.email}</div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">First Name</label>
+                                            <div className="p-4 bg-white/5 rounded-xl border border-white/5 text-sm font-medium">{profile.first_name || 'Not set'}</div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Last Name</label>
+                                            <div className="p-4 bg-white/5 rounded-xl border border-white/5 text-sm font-medium">{profile.last_name || 'Not set'}</div>
+                                        </div>
+                                    </div>
+                                    <Button
+                                        onClick={handleEdit}
+                                        variant="outline"
+                                        className="border-white/10 rounded-xl px-8 py-6 font-bold uppercase tracking-widest text-xs"
+                                    >
+                                        <span className="flex items-center gap-2">
+                                            <Edit2 className="w-4 h-4" />
+                                            Update Profile
+                                        </span>
+                                    </Button>
+                                </div>
+                            )}
                         </GlassCard>
                     </motion.div>
                 )}

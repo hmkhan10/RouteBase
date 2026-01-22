@@ -1,0 +1,15 @@
+{% autoescape off %}
+Hi {{ user.username }},
+
+Your payment of {{ order.amount }} PKR for order #{{ order.id }} has been successfully processed.
+
+{% if order.saas_plan_id %}
+Your SaaS subscription is now active! You can access your Pro features at:
+{{ dashboard_url }}
+{% else %}
+Thank you for your purchase!
+{% endif %}
+
+Best regards,
+The RouteBase Team
+{% endautoescape %}
