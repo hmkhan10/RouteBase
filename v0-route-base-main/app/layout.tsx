@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css"
 import { PaymentProvider } from "@/lib/payment-context"
 import { AuthProvider } from "@/lib/auth-context"
@@ -57,6 +58,7 @@ export default function RootLayout({
           </PaymentProvider>
         </AuthProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
