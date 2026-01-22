@@ -1,12 +1,18 @@
 {
-  "name": "my-v0-project",
+  "name": "routebases",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
-    "start": "next start"
+    "start": "next start",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "test:load": "./run-load-tests.sh",
+    "test:redis": "docker run --rm redis:7-alpine redis-cli -h host.docker.internal ping"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
@@ -47,6 +53,7 @@
     "embla-carousel-react": "8.5.1",
     "framer-motion": "12.26.2",
     "input-otp": "1.4.1",
+    "ioredis": "^5.9.2",
     "lucide-react": "^0.454.0",
     "next": "16.0.10",
     "next-themes": "^0.4.6",
@@ -56,6 +63,7 @@
     "react-hook-form": "^7.60.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.4",
+    "redis": "^5.10.0",
     "sonner": "^1.7.4",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",

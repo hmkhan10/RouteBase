@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # Redis for caching and session management
+  redis:
+    image: redis:7-alpine
+    container_name: routebase-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    networks:
+      - routebase-network
+
+  # Next.js Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: routebase-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=
+      - NEXT_PUBLIC_BASE_URL=http://localhost:3000
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - routebase-network
+    volumes:
+      - ./node_modules:/app/node_modules
+
+  # Load Testing Service (optional)
+  load-tester:
+    build:
+      context: .
+      dockerfile: Dockerfile.load-test
+    container_name: routebase-load-tester
+    environment:
+      - TARGET_URL=http://app:3000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - app
+      - redis
+    networks:
+      - routebase-network
+    profiles:
+      - testing
+
+volumes:
+  redis_data:
+
+networks:
+  routebase-network:
+    driver: bridge

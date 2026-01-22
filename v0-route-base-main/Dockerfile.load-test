@@ -1,0 +1,19 @@
+# Load Testing Dockerfile
+FROM node:18-alpine AS load-tester
+
+WORKDIR /app
+
+# Install curl and other utilities
+RUN apk add --no-cache curl
+
+# Copy package files for load testing dependencies
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# Copy load test scripts
+COPY load-test-scripts/ ./load-test-scripts/
+
+# Make scripts executable
+RUN chmod +x load-test-scripts/*.sh
+
+CMD ["node", "load-test-runner.js"]

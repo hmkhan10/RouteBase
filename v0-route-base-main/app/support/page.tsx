@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { RouteBaseLogo } from "@/components/routebase-logo"
+import { RouteBasesLogo } from "@/components/routebase-logo"
 import { GlassCard } from "@/components/glass-card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -15,7 +15,7 @@ export default function SupportPage() {
             <div className="max-w-4xl mx-auto">
                 <div className="flex justify-between items-center mb-12">
                     <Link href="/">
-                        <RouteBaseLogo />
+                        <RouteBasesLogo />
                     </Link>
                     <Link href="/login" className="text-sm font-bold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-2">
                         <ArrowLeft className="w-4 h-4" /> Back to Login

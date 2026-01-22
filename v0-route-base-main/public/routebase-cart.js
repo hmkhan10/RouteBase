@@ -1,8 +1,8 @@
 (function() {
     'use strict';
     
-    // RouteBase Embedded Shopping Cart
-    const RouteBaseCart = {
+    // RouteBases Embedded Shopping Cart
+    const RouteBasesCart = {
         config: {
             merchantId: null,
             apiBaseUrl: null,
@@ -350,7 +350,7 @@
                         <p style="color: #3b82f6; margin: 0 0 10px 0; font-size: 16px; font-weight: 600;">${this.config.currency} ${item.price.toFixed(2)}</p>
                         
                         <div style="display: flex; align-items: center; gap: 10px;">
-                            <button onclick="window.RouteBaseCart.updateQuantity('${item.id}', ${item.quantity - 1})" style="
+                            <button onclick="window.RouteBasesCart.updateQuantity('${item.id}', ${item.quantity - 1})" style="
                                 background: #374151;
                                 border: 1px solid #4b5563;
                                 color: white;
@@ -366,7 +366,7 @@
                             
                             <span style="color: white; min-width: 30px; text-align: center;">${item.quantity}</span>
                             
-                            <button onclick="window.RouteBaseCart.updateQuantity('${item.id}', ${item.quantity + 1})" style="
+                            <button onclick="window.RouteBasesCart.updateQuantity('${item.id}', ${item.quantity + 1})" style="
                                 background: #374151;
                                 border: 1px solid #4b5563;
                                 color: white;
@@ -380,7 +380,7 @@
                                 font-size: 16px;
                             ">+</button>
                             
-                            <button onclick="window.RouteBaseCart.removeFromCart('${item.id}')" style="
+                            <button onclick="window.RouteBasesCart.removeFromCart('${item.id}')" style="
                                 background: #ef4444;
                                 border: none;
                                 color: white;
@@ -494,7 +494,7 @@
     `;
     document.head.appendChild(style);
     
-    // Make RouteBaseCart globally available
-    window.RouteBaseCart = RouteBaseCart;
+    // Make RouteBasesCart globally available
+    window.RouteBasesCart = RouteBasesCart;
     
 })();

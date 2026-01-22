@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { RouteBaseLogo } from "./routebase-logo"
+import { RouteBasesLogo } from "./routebase-logo"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { usePayment } from "@/lib/payment-context"
@@ -18,7 +18,7 @@ export function Navbar() {
       className="fixed top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-6xl z-50 px-6 py-4 flex items-center justify-between glass rounded-full"
     >
       <Link href="/">
-        <RouteBaseLogo size="sm" />
+        <RouteBasesLogo size="sm" />
       </Link>
 
       {isPro && (
@@ -65,7 +65,7 @@ export function Navbar() {
             Sign In
           </Button>
         </Link>
-        <Link href="/register">
+        <Link href="/signup">
           <Button
             size="sm"
             className="bg-emerald-500 hover:bg-emerald-600 text-[10px] font-bold uppercase tracking-widest px-6 rounded-full shadow-lg shadow-emerald-500/20"

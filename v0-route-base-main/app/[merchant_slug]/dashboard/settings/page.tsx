@@ -202,7 +202,7 @@ export default function SettingsPage({ params }: SettingsPageProps) {
                     )}
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    Your logo will appear on checkout pages instead of RouteBase branding
+                    Your logo will appear on checkout pages instead of RouteBases branding
                   </p>
                 </div>
 
@@ -226,7 +226,7 @@ export default function SettingsPage({ params }: SettingsPageProps) {
                 <div className="p-4 bg-white/5 rounded-xl">
                   <p className="text-sm text-muted-foreground">
                     Your brand color and logo are used on your checkout page header and call-to-action buttons,
-                    replacing RouteBase branding with your own.
+                    replacing RouteBases branding with your own.
                   </p>
                 </div>
               </div>

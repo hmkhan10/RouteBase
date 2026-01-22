@@ -408,7 +408,7 @@ export default function CheckoutPage({ params }: CheckoutPageProps) {
 
                 <div className="flex items-center justify-center gap-2 mt-6 text-muted-foreground">
                   <Shield className="w-3 h-3" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest">Secured by RouteBase</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest">Secured by RouteBases</span>
                 </div>
               </GlassCard>
             </motion.div>

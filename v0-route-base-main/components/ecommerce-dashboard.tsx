@@ -13,7 +13,7 @@ interface EcommerceDashboardProps {
 }
 
 export function EcommerceDashboard({ merchant, metrics }: EcommerceDashboardProps) {
-  const feePercentage = 3 // RouteBase 3% fee
+  const feePercentage = 3 // RouteBases 3% fee
 
   return (
     <div className="space-y-8">
@@ -76,7 +76,7 @@ export function EcommerceDashboard({ merchant, metrics }: EcommerceDashboardProp
               </div>
             </div>
             <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">
-              RouteBase Fee ({feePercentage}%)
+              RouteBases Fee ({feePercentage}%)
             </p>
             <h2 className="text-3xl font-black text-blue-400">Rs. {metrics.totalFees.toLocaleString()}</h2>
           </GlassCard>
@@ -174,7 +174,7 @@ export function EcommerceDashboard({ merchant, metrics }: EcommerceDashboardProp
                   <Percent className="w-5 h-5 text-blue-400" />
                 </div>
                 <div>
-                  <p className="font-bold text-blue-400">RouteBase Platform Fee</p>
+                  <p className="font-bold text-blue-400">RouteBases Platform Fee</p>
                   <p className="text-sm text-muted-foreground">{feePercentage}% of gross volume</p>
                 </div>
               </div>
@@ -188,7 +188,7 @@ export function EcommerceDashboard({ merchant, metrics }: EcommerceDashboardProp
                 </div>
                 <div>
                   <p className="font-bold text-emerald-400">Net Merchant Revenue</p>
-                  <p className="text-sm text-muted-foreground">After RouteBase deduction</p>
+                  <p className="text-sm text-muted-foreground">After RouteBases deduction</p>
                 </div>
               </div>
               <span className="text-2xl font-black text-emerald-400">

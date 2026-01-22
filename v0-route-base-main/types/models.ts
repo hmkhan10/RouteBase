@@ -1,5 +1,5 @@
 /**
- * Shared TypeScript types for RouteBase platform
+ * Shared TypeScript types for RouteBases platform
  * Synced with Django models in merchants/models.py
  */
 

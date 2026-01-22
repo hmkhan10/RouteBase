@@ -1,11 +1,11 @@
 /**
- * API Client for RouteBase Django Backend
+ * API Client for RouteBases Django Backend
  * Handles all HTTP requests to Django API
  */
 
 import type { HelloWorldResponse, HealthCheckResponse, MerchantListResponse } from '@/types/models';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
 
 class ApiClient {
     private baseUrl: string;
@@ -33,13 +33,26 @@ class ApiClient {
         try {
             const response = await fetch(url, config);
 
+            const data = await response.json();
+
             if (!response.ok) {
+                // Handle API error responses
+                if (data.error) {
+                    throw new Error(`HTTP ${response.status}: ${data.error}`);
+                }
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
 
-            return await response.json();
+            return data;
         } catch (error) {
-            console.error(`API Error: ${endpoint}`, error);
+            // Don't log 401 errors for /api/users/me/ endpoint as they're expected for unauthenticated users
+            const isExpected401 = error instanceof Error && 
+                                 error.message.includes('HTTP 401') && 
+                                 endpoint.includes('/users/me');
+            
+            if (!isExpected401) {
+                console.error(`API Error: ${endpoint}`, error);
+            }
             throw error;
         }
     }
@@ -73,15 +86,24 @@ class ApiClient {
     }
     // Login
     async login(data: any): Promise<any> {
-        return this.request<any>('/login/', {
+        const response = await this.request<any>('/api/users/login/', {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        return response;
+    }
+
+    // Register
+    async register(data: any): Promise<any> {
+        return this.request<any>('/api/users/register/', {
             method: 'POST',
             body: JSON.stringify(data),
         });
     }
 
-    // Register
-    async register(data: any): Promise<any> {
-        return this.request<any>('/register/', {
+    // User Registration (simple signup)
+    async userRegister(data: any): Promise<any> {
+        return this.request<any>('/api/users/register/', {
             method: 'POST',
             body: JSON.stringify(data),
         });
@@ -115,6 +137,21 @@ class ApiClient {
     async getSubscription(): Promise<any> {
         return this.request<any>('/api/subscription/', {
             method: 'GET',
+        });
+    }
+
+    // Get Current User
+    async getCurrentUser(): Promise<any> {
+        return this.request<any>('/api/users/me/', {
+            method: 'GET',
+        });
+    }
+
+    // Update Profile
+    async updateProfile(data: any): Promise<any> {
+        return this.request<any>('/api/users/me/', {
+            method: 'PATCH',
+            body: JSON.stringify(data),
         });
     }
 
@@ -153,6 +190,8 @@ export const requestPasswordReset = apiClient.requestPasswordReset.bind(apiClien
 export const confirmPasswordReset = apiClient.confirmPasswordReset.bind(apiClient);
 export const verifyPayment = apiClient.verifyPayment.bind(apiClient);
 export const getSubscription = apiClient.getSubscription.bind(apiClient);
+export const getCurrentUser = apiClient.getCurrentUser.bind(apiClient);
+export const updateProfile = apiClient.updateProfile.bind(apiClient);
 export const getOrderHistory = apiClient.getOrderHistory.bind(apiClient);
 export const getEcommerceMetrics = apiClient.getEcommerceMetrics.bind(apiClient);
 export const getSaaSMetrics = apiClient.getSaaSMetrics.bind(apiClient);
