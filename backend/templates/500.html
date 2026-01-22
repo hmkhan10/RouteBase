@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error | RouteBase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0A0C10;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-md w-full text-center">
+        <div
+            class="w-24 h-24 bg-red-500/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-red-500/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-500" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+        </div>
+        <h1 class="text-4xl font-black uppercase tracking-tighter mb-4">500: Server Error</h1>
+        <p class="text-gray-400 mb-10 leading-relaxed">
+            Something went wrong on our end. We're already working on a fix. Please try again in a few moments.
+        </p>
+        <a href="/"
+            class="inline-block w-full py-4 bg-white text-black font-bold rounded-2xl hover:bg-gray-200 transition-all uppercase tracking-widest text-sm">
+            Back to Safety
+        </a>
+    </div>
+</body>
+
+</html>

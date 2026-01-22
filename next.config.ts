@@ -1,11 +1,11 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-    async rewrites() {
-        return [
-            {
-                source: '/api/:path*/',
-                // Use an environment variable for the backend URL
-                destination: `${process.env.BACKEND_URL}/api/:path*/`,
-            },
-        ];
+  experimental: {
+    mcp: {
+      enabled: true,
+      port: 3000, // Matches your localhost port
     },
+  },
 };
+
+export default nextConfig;

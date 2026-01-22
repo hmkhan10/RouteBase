@@ -4,6 +4,7 @@ from . import views
 from . import api_views
 from .views import receive_uplink_data
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 app_name = 'merchants' 
 
 urlpatterns = [
@@ -11,6 +12,7 @@ urlpatterns = [
     path('api/health/', api_views.health_check, name='health_check'),
     path('api/hello/', api_views.hello_world, name='hello_world'),
     path('api/merchants/', api_views.merchant_list, name='merchant_list'),
+    path('api/users/me/', api_views.current_user, name='current_user'),
     
     # Existing routes
     path('master-admin/', views.platform_master_dashboard, name='platform_admin'),
@@ -26,7 +28,7 @@ urlpatterns = [
     path('webhook/payment/', views.payment_webhook, name='payment_webhook'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('setup-pro/', views.pro_setup_view, name='pro_setup_form'),
-    path('build-page/', views.build_page, name='build_page'),
+    path('build-page/', login_required(views.build_page), name='build_page'),
     path('pro-dashboard/', views.pro_dashboard, name='pro_dashboard'),
      path('transaction_history/', views.transaction_history, name='transaction_history'),
     path('generate-report/', views.generate_report, name='generate_report'),
@@ -38,8 +40,8 @@ urlpatterns = [
     path('pay/<slug:slug>/', views.seller_page, name='seller_page'),
     path('api/v1/uplink/', receive_uplink_data, name='sdk_uplink'),
    path('api/sync-corporation/', views.sync_corporation, name='sync_corporation'),
-    path('api/process-payment/', views.process_quick_payment, name='process_payment'),
-    path('payment/jazzcash/callback/', views.Sadapay_callback, name='jazzcash_callback'),
+   path('api/process-payment/', views.process_payment, name='process_payment_form'),
+   path('payment/jazzcash/callback/', views.Sadapay_callback, name='jazzcash_callback'),
     path('payment/success/<uuid:transaction_id>/', views.payment_success, name='payment_success'),
     path('payment/error/', views.payment_error, name='payment_error'),
     path('activate-trial/', views.activate_trial, name='activate_trial'),

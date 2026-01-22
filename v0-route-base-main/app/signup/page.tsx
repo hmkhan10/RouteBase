@@ -365,6 +365,17 @@ export default function SignupPage() {
               </Link>
             </p>
 
+            <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+              <p className="text-xs text-amber-400 mb-3">
+                <strong>Having registration issues?</strong> You can still make payments.
+              </p>
+              <Link href="/ecommerce-payment">
+                <Button variant="outline" size="sm" className="w-full border-amber-500/30 text-amber-400 hover:bg-amber-500/10">
+                  Skip Registration & Pay Directly
+                </Button>
+              </Link>
+            </div>
+
             <div className="mt-8 pt-6 border-t border-white/5 flex justify-center gap-6 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
               <Link href="/terms" className="hover:text-emerald-400 transition-colors">Terms</Link>
               <Link href="/privacy" className="hover:text-emerald-400 transition-colors">Privacy</Link>

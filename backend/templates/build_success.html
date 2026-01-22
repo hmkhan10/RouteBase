@@ -1,0 +1,22 @@
+<div class="mesh-gradient"></div>
+<div class="max-w-2xl mx-auto py-20 text-center">
+    <div class="glass-card p-10 border-emerald-500/30">
+        <i class="fa-solid fa-circle-check text-6xl text-emerald-500 mb-6"></i>
+        <h1 class="text-4xl font-black uppercase italic">Platform Built!</h1>
+        
+        <p class="text-slate-400 mt-4">Your page is live at:</p>
+        <div class="bg-white/5 p-4 rounded-xl mt-2 font-mono text-blue-400">
+            {{ final_url }}
+        </div>
+
+        <div class="mt-10 p-6 bg-blue-600/10 border border-blue-500/20 rounded-3xl">
+            <p class="text-xs uppercase font-black tracking-widest text-blue-500">Your Unique Dashboard ID</p>
+            <h2 class="text-5xl font-mono font-black mt-2 tracking-tighter">{{ unique_id }}</h2>
+            <p class="text-slate-500 text-sm mt-4">Copy this ID and paste it into your Pro Dashboard to sync live stats.</p>
+        </div>
+
+        <a href="/pro-dashboard/" class="block mt-8 text-sm font-bold uppercase hover:text-blue-500 transition-colors">
+            Go to Dashboard <i class="fa-solid fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+</div>

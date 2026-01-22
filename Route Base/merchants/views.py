@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.contrib.auth.decorators import login_required, user_passes_test 
 from django.contrib.auth import login, authenticate, logout 
+from django.contrib.auth.models import User
 from django.contrib import messages 
 from .utils import generate_paymob_iframe
 from django.http import JsonResponse, HttpResponse 
@@ -112,13 +113,18 @@ def register(request):
             sub.user_type = 'SAAS' if 'saas' in plan_type.lower() else 'MERCHANT'
             sub.save()
             
+            # Generate unique timestamp for phone numbers
+            import time
+            timestamp = str(int(time.time()))[-6:]
+            
             Seller.objects.get_or_create(
                 user=user,
                 defaults={
-                    'business_name': data.get('business_name', ''),
-                    'phone': data.get('phone', ''),
+                    'phone': data.get('phone', f'000{timestamp}'),
                     'email': user.email,
                     'page_slug': slugify(data.get('business_name', user.username)),
+                    'page_title': data.get('business_name', f"{user.username}'s Shop"),
+                    'jazzcash_number': data.get('phone', f'000{timestamp}'),
                     'bank_name': data.get('bank_name', ''),
                     'bank_account': data.get('iban', ''),
                 }
@@ -326,6 +332,48 @@ def process_quick_payment(request):
         ) 
         return Response(result) 
     except Exception as e: 
+        return Response({'success': False, 'error': str(e)}, status=500)
+
+@api_view(['POST'])
+@csrf_exempt
+def process_payment(request):
+    """Process payment from pro template form"""
+    try:
+        data = request.data
+        plan = data.get('plan')
+        email = data.get('email')
+        card_number = data.get('card_number')
+        expiry = data.get('expiry')
+        cvv = data.get('cvv')
+        
+        if not all([plan, email, card_number, expiry, cvv]):
+            return Response({'success': False, 'error': 'Missing required fields'}, status=400)
+        
+        # Mock payment processing - in production, integrate with real payment gateway
+        plan_prices = {
+            'basic': 100,
+            'premium': 500,
+            'enterprise': 1000
+        }
+        
+        if plan not in plan_prices:
+            return Response({'success': False, 'error': 'Invalid plan selected'}, status=400)
+        
+        amount = Decimal(str(plan_prices[plan]))
+        
+        # Create a mock transaction record
+        transaction_id = str(uuid.uuid4())
+        
+        # Return success response
+        return Response({
+            'success': True,
+            'transaction_id': transaction_id,
+            'amount': amount,
+            'plan': plan,
+            'message': f'Payment of PKR {amount} for {plan} plan processed successfully'
+        })
+        
+    except Exception as e:
         return Response({'success': False, 'error': str(e)}, status=500)
 def withdraw_commission(request): 
     return render(request, 'withdraw.html') 
@@ -910,6 +958,11 @@ def pro_setup_view(request):
     return render(request, 'pro_setup_form.html')
 def build_page(request):
     if request.method == "POST":
+        # Check if user is authenticated
+        if not request.user.is_authenticated:
+            messages.error(request, "You must be logged in to build a page. Please login first.")
+            return redirect('merchants:pro_setup_form')
+        
         # 1. Get the basic info from the form
         site_name = request.POST.get('site_name')
         site_slug = request.POST.get('site_slug')
@@ -921,25 +974,33 @@ def build_page(request):
         plan_prices = request.POST.getlist('plan_prices[]')
         plan_intervals = request.POST.getlist('plan_intervals[]')
 
-        # 3. Find the user's subscription and update it
-        sub = UserSubscription.objects.get(user=request.user)
-        sub.site_name = site_name
-        sub.slug = site_slug
-        
-        # 4. Generate the Unique ID (8-digit code)
-        unique_id = str(uuid.uuid4())[:8].upper()
-        sub.paymob_order_id = unique_id  # Storing the ID here for now
-        sub.is_active = True
-        sub.save()
+        try:
+            # 3. Find the user's subscription and update it
+            sub = UserSubscription.objects.get(user=request.user)
+            sub.site_name = site_name
+            sub.slug = site_slug
+            
+            # 4. Generate the Unique ID (8-digit code)
+            unique_id = str(uuid.uuid4())[:8].upper()
+            sub.paymob_order_id = unique_id  # Storing the ID here for now
+            sub.is_active = True
+            sub.save()
 
-        # 5. Show the Success Page with the ID and URL
-        context = {
-            'unique_id': unique_id,
-            'final_url': f"www.routebase.com/{site_slug}/",
-            'site_name': site_name,
-            'plans_count': len(plan_names)
-        }
-        return render(request, 'build_success.html', context)
+            # 5. Show the Success Page with the ID and URL
+            context = {
+                'unique_id': unique_id,
+                'final_url': f"www.routebase.com/{site_slug}/",
+                'site_name': site_name,
+                'plans_count': len(plan_names)
+            }
+            return render(request, 'build_success.html', context)
+        
+        except UserSubscription.DoesNotExist:
+            messages.error(request, "No subscription found. Please create a subscription first.")
+            return redirect('merchants:pro_setup_form')
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+            return redirect('merchants:pro_setup_form')
 
     # If someone tries to access /build-page/ via GET, send them back
     return redirect('merchants:pro_setup_form')

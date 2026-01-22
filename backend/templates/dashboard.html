@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RouteBase Pro | Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+
+        :root {
+            --brand-teal: #00d3a9;
+            --dark-bg: #060912;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .glass-panel {
+            background: rgba(22, 28, 45, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .notification-toast {
+            transform: translateX(120%);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 100;
+        }
+
+        .notification-toast.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex">
+
+    <div id="liveToast"
+        class="notification-toast glass-panel p-5 rounded-2xl flex items-center gap-4 border-l-4 border-l-emerald-400">
+        <div class="bg-emerald-500/20 p-3 rounded-full text-emerald-400"><i class="fa-solid fa-bolt"></i></div>
+        <div>
+            <p class="text-[10px] font-black uppercase text-emerald-400">Payment Alert</p>
+            <p id="toastAmount" class="text-lg font-bold">Rs. 0.00</p>
+        </div>
+    </div>
+
+    <aside class="w-72 glass-panel flex flex-col fixed h-full z-50">
+        <div class="p-8"><span class="text-xl font-black italic text-emerald-400 uppercase">RouteBase Pro</span></div>
+        <nav class="flex-1 px-4 space-y-2">
+            <a href="{% url 'merchants:dashboard' %}"
+                class="flex items-center gap-4 py-4 px-6 rounded-xl transition 
+       {% if request.resolver_match.view_name == 'merchants:dashboard' %} bg-emerald-500/10 text-emerald-400 border-l-4 border-emerald-400 {% else %} opacity-60 hover:opacity-100 {% endif %}">
+                <i class="fa-solid fa-chart-line"></i> <span class="font-bold">Intelligence</span>
+            </a>
+
+            <a href="{% url 'merchants:transaction_history' %}"
+                class="flex items-center gap-4 py-4 px-6 rounded-xl transition 
+       {% if request.resolver_match.view_name == 'merchants:transaction_history' %} bg-emerald-500/10 text-emerald-400 border-l-4 border-emerald-400 {% else %} opacity-60 hover:opacity-100 {% endif %}">
+                <i class="fa-solid fa-clock-rotate-left"></i> <span class="font-bold">History</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="ml-72 flex-1 p-10">
+        <header class="flex justify-between items-center mb-12">
+            <div>
+                <h1 class="text-3xl font-black">Intelligence Suite</h1>
+                <p class="text-slate-500">Live monitoring for {{ seller.page_slug }}</p>
+            </div>
+            <a href="{% url 'merchants:generate_report' %}"
+                class="px-6 py-3 bg-emerald-500 text-slate-900 rounded-xl font-black uppercase text-xs tracking-widest">
+                <i class="fa-solid fa-file-pdf"></i> Monthly Export
+            </a>
+        </header>
+        <div>
+            <a href="{% url 'merchants:pay_page' %}">Client Page</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="glass-panel p-8 rounded-[2rem]">
+                <p class="text-slate-500 font-bold uppercase text-[10px] tracking-widest mb-2">Gross Volume</p>
+                <h2 class="text-4xl font-black italic">Rs. {{ total_volume }}</h2>
+            </div>
+            <div class="glass-panel p-8 rounded-[2rem] border-emerald-500/20">
+                <p class="text-slate-500 font-bold uppercase text-[10px] tracking-widest mb-2">Merchant Profit</p>
+                <h2 class="text-4xl font-black italic text-emerald-400">Rs. {{ merchant_profit }}</h2>
+            </div>
+            <div class="glass-panel p-8 rounded-[2rem] border-red-500/20">
+                <p class="text-slate-500 font-bold uppercase text-[10px] tracking-widest mb-2">Abandoned Carts</p>
+                <h2 class="text-4xl font-black italic text-red-400">{{ abandoned_carts }}</h2>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 glass-panel p-10 rounded-[2.5rem]">
+                <div id="revenueChart"></div>
+            </div>
+            <div class="glass-panel p-10 rounded-[2.5rem] flex flex-col justify-between">
+                <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8">Channel Distribution
+                </h3>
+
+                <div class="space-y-8">
+                    <div class="group cursor-default">
+                        <div class="flex justify-between items-end mb-3">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                                    <i class="fa-solid fa-building-columns"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-white">Raast (Direct)</p>
+                                    <p class="text-[10px] text-slate-500">{{ raast_count }} Transactions</p>
+                                </div>
+                            </div>
+                            <p class="text-sm font-black text-emerald-400">Active</p>
+                        </div>
+                        <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-400 rounded-full transition-all duration-1000"
+                                style="width: {% if total_volume > 0 %}{{ raast_count|add:sadabiz_count|divisibleby:raast_count }}%{% else %}0%{% endif %}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group cursor-default">
+                        <div class="flex justify-between items-end mb-3">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-white">SadaBiz</p>
+                                    <p class="text-[10px] text-slate-500">{{ sadabiz_count }} Transactions</p>
+                                </div>
+                            </div>
+                            <p class="text-sm font-black text-blue-400">Active</p>
+                        </div>
+                        <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-400 rounded-full transition-all duration-1000"
+                                style="width: {% if total_volume > 0 %}{{ raast_count|add:sadabiz_count|divisibleby:sadabiz_count }}%{% else %}0%{% endif %}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="miniSourceDonut" class="mt-8 opacity-40 grayscale group-hover:grayscale-0 transition-all">
+                </div>
+            </div>
+        </div>
+
+        {{ chart_data|json_script:"chart-data" }}
+        {{ chart_labels|json_script:"chart-labels" }}
+        {{ raast_count|json_script:"raast-count" }}
+        {{ sadabiz_count|json_script:"sadabiz-count" }}
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Safely parse data from json_script
+                const dataPulse = JSON.parse(document.getElementById('chart-data').textContent || '[]');
+                const labelsPulse = JSON.parse(document.getElementById('chart-labels').textContent || '[]');
+                const raastVal = parseInt(document.getElementById('raast-count').textContent || '0');
+                const sadabizVal = parseInt(document.getElementById('sadabiz-count').textContent || '0');
+
+                // Revenue Chart Configuration
+                new ApexCharts(document.querySelector("#revenueChart"), {
+                    series: [{ name: 'Volume', data: dataPulse }],
+                    chart: { type: 'area', height: 380, toolbar: { show: false }, fontFamily: 'Plus Jakarta Sans' },
+                    colors: ['#00d3a9'],
+                    stroke: { curve: 'smooth', width: 4 },
+                    fill: { type: 'gradient', gradient: { opacityFrom: 0.4, opacityTo: 0 } },
+                    grid: { borderColor: 'rgba(255,255,255,0.03)', strokeDashArray: 5 },
+                    xaxis: { categories: labelsPulse, labels: { style: { colors: '#64748b' } } },
+                    yaxis: {
+                        min: 0,
+                        max: Math.max(...dataPulse, 1000), // Professional scale even at 0
+                        labels: { style: { colors: '#64748b' }, formatter: (v) => "Rs. " + v.toFixed(0) }
+                    },
+                    tooltip: { theme: 'dark' }
+                }).render();
+
+                // Donut Chart Configuration
+                new ApexCharts(document.querySelector("#miniSourceDonut"), {
+                    series: [raastVal || 0.1, sadabizVal || 0.1], // Slices visible even at 0
+                    labels: ['Raast', 'SadaBiz'],
+                    chart: { type: 'donut', height: 280 },
+                    colors: ['#00d3a9', '#3b82f6'],
+                    plotOptions: { pie: { donut: { labels: { show: true, total: { show: true, label: 'TOTAL', formatter: () => raastVal + sadabizVal } } } } },
+                    legend: { position: 'bottom', labels: { colors: '#64748b' } }
+                }).render();
+            });
+            // Live Alert Logic
+            function triggerAlert(amt) {
+                const toast = document.getElementById('liveToast');
+                toast.classList.add('show');
+                // Logic to refresh data would go here
+            }
+        </script>
+</body>
+
+</html>

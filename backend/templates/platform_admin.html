@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RouteBase | Master Command</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;800&display=swap');
+        body { background-color: #020617; color: white; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .beast-gradient { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #7c3aed 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glow-blue { box-shadow: 0 0 50px -12px rgba(59, 130, 246, 0.3); }
+    </style>
+</head>
+<body class="p-6 md:p-12 pb-24">
+
+    {{ labels|json_script:"chart-labels" }}
+    {{ data_points|json_script:"chart-data" }}
+
+    <div class="max-w-7xl mx-auto space-y-10">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start gap-6">
+            <div>
+                <h1 class="text-6xl font-black italic uppercase tracking-tighter">Master <span class="text-blue-500">Command</span></h1>
+                <div class="flex items-center gap-4 mt-2">
+                    <span class="status-badge bg-emerald-500/10 text-emerald-400 text-[10px] font-black px-3 py-1 rounded-full border border-emerald-500/20 uppercase tracking-widest">System Health: Optimal</span>
+                    <span class="text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em]">v2.0 Enterprise</span>
+                </div>
+            </div>
+            <div class="glass-card p-6 rounded-[2rem] border-blue-500/20 glow-blue">
+                <p class="text-[9px] font-black text-blue-400 uppercase tracking-widest mb-1">Avg Revenue / Owner</p>
+                <h3 class="text-3xl font-black italic tracking-tighter">PKR {{ avg_rev_per_user }}</h3>
+            </div>
+        </div>
+
+        <div class="glass-card p-8 rounded-[3.5rem] relative overflow-hidden">
+            <div class="flex justify-between items-center mb-8 relative z-10">
+                <h3 class="text-xl font-black italic uppercase tracking-widest">30-Day Platform Flux</h3>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 bg-white/5 rounded-lg text-[10px] font-black uppercase tracking-widest">Live Revenue Feed</span>
+                </div>
+            </div>
+            <div class="h-[350px]">
+                <canvas id="globalFluxChart"></canvas>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass-card p-10 rounded-[2.5rem] group hover:bg-white/5 transition">
+                <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest">Linked Entities</p>
+                <h2 class="text-5xl font-black mt-2 italic">{{ total_owners }}</h2>
+                <div class="mt-4 text-blue-400 text-[10px] font-bold uppercase tracking-widest">{{ premium_count }} Pro Licenses</div>
+            </div>
+            <div class="glass-card p-10 rounded-[2.5rem] group hover:bg-white/5 transition">
+                <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest">Deployed Nodes</p>
+                <h2 class="text-5xl font-black mt-2 italic">{{ total_websites }}</h2>
+                <div class="mt-4 text-slate-500 text-[10px] font-bold uppercase tracking-widest">Across All Sectors</div>
+            </div>
+            <div class="beast-gradient p-10 rounded-[2.5rem] shadow-2xl shadow-blue-600/20">
+                <p class="text-white/60 text-[10px] font-black uppercase tracking-widest">Total Gross Volume</p>
+                <h2 class="text-5xl font-black mt-2 italic">PKR {{ platform_revenue }}</h2>
+                <div class="mt-4 text-white/80 text-[10px] font-bold uppercase tracking-widest">Settled to Bank</div>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-10">
+            
+            <div class="lg:col-span-2 glass-card p-10 rounded-[3rem]">
+                <h3 class="text-xl font-black italic uppercase tracking-widest mb-8">Operator Activity</h3>
+                <div class="space-y-4">
+                    {% for o in owners %}
+                    <div class="flex items-center justify-between p-6 bg-white/[0.02] border border-white/5 rounded-[2rem] hover:bg-white/[0.05] transition group">
+                        <div class="flex items-center gap-5">
+                            <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center font-black italic group-hover:beast-gradient group-hover:text-white transition">
+                                {{ o.user.username|slice:":1"|upper }}
+                            </div>
+                            <div>
+                                <h4 class="font-black uppercase text-sm">{{ o.user.username }}</h4>
+                                <p class="text-[9px] text-slate-500 font-bold uppercase italic">{{ o.website_name|default:"Awaiting Build" }}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-black text-emerald-400">PKR {{ o.revenue|default:0 }}</p>
+                            <p class="text-[9px] text-slate-500 font-bold uppercase">{{ o.tx_count }} TX</p>
+                        </div>
+                        <div class="ml-4">
+                            {% if o.subscription_expiry > now %}
+                            <span class="text-[8px] font-black bg-blue-500 text-white px-3 py-1 rounded-full uppercase italic">Pro</span>
+                            {% else %}
+                            <span class="text-[8px] font-black bg-white/10 text-slate-500 px-3 py-1 rounded-full uppercase italic">Trial</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="glass-card p-10 rounded-[3rem]">
+                <h3 class="text-xl font-black italic uppercase tracking-widest mb-8">Live Flux</h3>
+                <div class="space-y-6 relative">
+                    <div class="absolute left-3 top-0 bottom-0 w-[1px] bg-white/5"></div>
+                    {% for tx in global_transactions %}
+                    <div class="relative pl-10">
+                        <div class="absolute left-[10px] top-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]"></div>
+                        <p class="text-[9px] font-black uppercase text-slate-500">{{ tx.created_at|timesince }} ago</p>
+                        <p class="text-[11px] font-bold text-slate-200">{{ tx.customer_name }} paid PKR {{ tx.amount }}</p>
+                        <p class="text-[9px] text-blue-400 font-black uppercase italic">{{ tx.owner.website_name }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('globalFluxChart').getContext('2d');
+        const labels = JSON.parse(document.getElementById('chart-labels').textContent);
+        const data = JSON.parse(document.getElementById('chart-data').textContent);
+
+        const gradient = ctx.createLinearGradient(0, 0, 0, 350);
+        gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
+        gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Platform Revenue',
+                    data: data,
+                    borderColor: '#3b82f6',
+                    borderWidth: 4,
+                    pointRadius: 0,
+                    pointHoverRadius: 6,
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: gradient,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#64748b', font: { weight: '800', size: 10 } } },
+                    x: { grid: { display: false }, ticks: { color: '#64748b', font: { weight: '800', size: 10 } } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

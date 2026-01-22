@@ -63,11 +63,46 @@ export default function EcommercePaymentPage() {
   const [selectedPlan, setSelectedPlan] = useState<typeof ecommercePlans[0] | null>(null)
   const [showCheckout, setShowCheckout] = useState(false)
   const [paymentData, setPaymentData] = useState({
-    accountNumber: "",
     name: "",
+    accountNumber: "",
     expiry: "",
     cvc: ""
   })
+
+  // Format card number with spaces
+  const formatCardNumber = (value: string) => {
+    const cleaned = value.replace(/\s/g, '')
+    const groups = cleaned.match(/.{1,4}/g) || []
+    return groups.join(' ').substr(0, 19) // Max 19 chars (16 digits + 3 spaces)
+  }
+
+  // Format expiry date with auto slash
+  const formatExpiry = (value: string) => {
+    const cleaned = value.replace(/\D/g, '')
+    if (cleaned.length >= 2) {
+      return cleaned.slice(0, 2) + '/' + cleaned.slice(2, 4)
+    }
+    return cleaned.slice(0, 2)
+  }
+
+  // Handle card number input
+  const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCardNumber(e.target.value)
+    setPaymentData(prev => ({ ...prev, accountNumber: formatted }))
+  }
+
+  // Handle expiry date input
+  const handleExpiryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatExpiry(e.target.value)
+    setPaymentData(prev => ({ ...prev, expiry: formatted }))
+  }
+
+  // Handle CVC input (numbers only, max 3 digits)
+  const handleCvcChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const cleaned = e.target.value.replace(/\D/g, '').slice(0, 3)
+    setPaymentData(prev => ({ ...prev, cvc: cleaned }))
+  }
+
   const [isProcessing, setIsProcessing] = useState(false)
   const [paymentSuccess, setPaymentSuccess] = useState(false)
 
@@ -93,6 +128,19 @@ export default function EcommercePaymentPage() {
     setTimeout(() => {
       setIsProcessing(false)
       setPaymentSuccess(true)
+      
+      // Store guest payment info in localStorage for later
+      if (!isAuthenticated) {
+        localStorage.setItem('guestPayment', JSON.stringify({
+          plan: selectedPlan?.id,
+          amount: selectedPlan?.price,
+          timestamp: new Date().toISOString(),
+          paymentData: {
+            name: paymentData.name,
+            last4: paymentData.accountNumber.slice(-4)
+          }
+        }))
+      }
     }, 3000)
   }
 
@@ -141,12 +189,24 @@ export default function EcommercePaymentPage() {
               </div>
               <h2 className="text-2xl font-black mb-4">Payment Successful!</h2>
               <p className="text-muted-foreground mb-6">
-                You now have access to {selectedPlan?.name} features. Please sign in to continue setup.
+                You now have access to {selectedPlan?.name} features. Your payment has been processed successfully.
               </p>
+              
+              <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 mb-6">
+                <p className="text-xs text-emerald-400 mb-2">
+                  <strong>Payment Details:</strong>
+                </p>
+                <div className="text-xs text-emerald-300 space-y-1">
+                  <p>Plan: {selectedPlan?.name}</p>
+                  <p>Amount: PKR {selectedPlan?.price}</p>
+                  <p>Card: ****{paymentData.accountNumber.slice(-4)}</p>
+                </div>
+              </div>
+
               <div className="space-y-3">
                 <Link href={`/login?redirect=setup-ecommerce&plan=${selectedPlan?.id}`}>
                   <Button className="w-full bg-emerald-500 hover:bg-emerald-600">
-                    Sign In to Continue
+                    Sign In to Setup Your Store
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </Link>
@@ -155,6 +215,13 @@ export default function EcommercePaymentPage() {
                     Create New Account
                   </Button>
                 </Link>
+                <Button 
+                  variant="ghost" 
+                  className="w-full text-muted-foreground hover:text-foreground"
+                  onClick={() => window.location.href = 'mailto:support@routebase.com'}
+                >
+                  Need Help? Contact Support
+                </Button>
               </div>
             </GlassCard>
           </motion.div>
@@ -213,6 +280,28 @@ export default function EcommercePaymentPage() {
             Select the perfect plan for your e-commerce business and start accepting payments with a fully integrated shopping cart.
           </p>
         </motion.div>
+
+        {/* Guest Payment Notice */}
+        {!isAuthenticated && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8"
+          >
+            <GlassCard className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-amber-500/20 rounded-full flex items-center justify-center">
+                  <Lock className="w-4 h-4 text-amber-400" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm text-amber-400 font-medium">
+                    <strong>Guest Payment Available:</strong> You can make payments without creating an account. Your payment details are secure and processed immediately.
+                  </p>
+                </div>
+              </div>
+            </GlassCard>
+          </motion.div>
+        )}
 
         {/* Plans Grid */}
         {!showCheckout && (
@@ -344,13 +433,14 @@ export default function EcommercePaymentPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="accountNumber">Account Number</Label>
+                  <Label htmlFor="cardNumber">Card Number</Label>
                   <Input
-                    id="accountNumber"
+                    id="cardNumber"
                     placeholder="1234 5678 9012 3456"
                     value={paymentData.accountNumber}
-                    onChange={(e) => setPaymentData(prev => ({ ...prev, accountNumber: e.target.value }))}
-                    className="bg-white/5 border-white/10"
+                    onChange={handleCardNumberChange}
+                    maxLength={19}
+                    className="bg-white/5 border-white/10 font-mono text-lg"
                   />
                 </div>
 
@@ -361,8 +451,9 @@ export default function EcommercePaymentPage() {
                       id="expiry"
                       placeholder="MM/YY"
                       value={paymentData.expiry}
-                      onChange={(e) => setPaymentData(prev => ({ ...prev, expiry: e.target.value }))}
-                      className="bg-white/5 border-white/10"
+                      onChange={handleExpiryChange}
+                      maxLength={5}
+                      className="bg-white/5 border-white/10 font-mono"
                     />
                   </div>
                   <div>
@@ -371,8 +462,9 @@ export default function EcommercePaymentPage() {
                       id="cvc"
                       placeholder="123"
                       value={paymentData.cvc}
-                      onChange={(e) => setPaymentData(prev => ({ ...prev, cvc: e.target.value }))}
-                      className="bg-white/5 border-white/10"
+                      onChange={handleCvcChange}
+                      maxLength={3}
+                      className="bg-white/5 border-white/10 font-mono"
                     />
                   </div>
                 </div>

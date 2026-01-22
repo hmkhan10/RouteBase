@@ -378,6 +378,17 @@ export default function LoginPage() {
                 Create Account
               </Link>
             </p>
+
+            <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+              <p className="text-xs text-amber-400 mb-3">
+                <strong>Can't sign in?</strong> You can still make payments without an account.
+              </p>
+              <Link href="/ecommerce-payment">
+                <Button variant="outline" size="sm" className="w-full border-amber-500/30 text-amber-400 hover:bg-amber-500/10">
+                  Pay Without Account
+                </Button>
+              </Link>
+            </div>
           </GlassCard>
         </motion.div>
       </div>
